@@ -13,18 +13,28 @@ set_exception_handler(function($exception) {
     <title>Document</title>
 </head>
 <body>
-    <h2>Lista sin enumerar</h2>
+<?php
+
+
+$num1 = rand(min:1,max:99);
+$num2 = rand(min:1,max:99);
+$num3 = rand(min:1,max:99);
+$num4 = rand(min:1,max:99);
+$suma = $num1+$num2+$num3+$num4;
+?>
 <ul>
-        <?php
-        $suma=0;
-        for ($i = 0; $i < 4; $i++) {
-            $numero = rand(1, 99);
-            echo "<li>$numero</li>";
-            $suma += $numero;
-        }
-      
-    ?>
+    <li><?php echo $num1 ?></li>
+    <li><?php echo $num2 ?></li>
+    <li><?php echo $num3 ?></li>
+    <li><?php echo $num4 ?></li>
 </ul>
-<p style="background-color: blueviolet;">La suma de los números es: <span class="suma"><?php echo $suma; ?></span></p>
+
+<h2 style="background-color: greenyellow;"> <?php
+echo "la suma de los numeros es: ".$suma;
+$media = $suma/4;
+echo "La media es: ".$media;
+?>
+</h2>
 </body>
+
 </html>
