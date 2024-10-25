@@ -20,8 +20,11 @@ En la pestaña SAI, marque la casilla Habilitar servidor SAI de red para permiti
 #### Salicru
 - https://www.salicru.com/sais/sps-advance-rt2.html **(Máximo 3000VA no hay de 4000VA)**
 - **846€**
-- ![71K12logzqL _AC_SX569_](https://github.com/user-attachments/assets/76eee0fc-d9f1-47ec-b3e2-a9f6f5b4c1cb)
+- <img src="https://github.com/user-attachments/assets/ff3755ff-70e4-4c21-a3b9-6ce3216df758" alt="sai-salicru" width="200"/>
 #### CyberPower
+- https://www.cyberpower.com/eu/es/product/sku/pr3000ertxl2u
+- **1800€**
+- ![saicyberpower](https://github.com/user-attachments/assets/dfe63ea1-2872-4a5a-98f4-8a1604178720)
 ### Fase 3: Simulación de SAI con NUT, Kibana, Prometheus y Grafana.
 - **La herramienta NUT** (Network UPS Tools) permite simular el comportamiento de un SAI (Sistema de Alimentación Ininterrumpida) mediante un driver llamado dummy-ups, que crea un dispositivo UPS virtual. Esto es útil para pruebas o prácticas sin tener un hardware físico. La simulación incluye el estado de la batería, el tiempo de respaldo, el voltaje, y otros parámetros que un SAI real reportaría.	
 - **Kibana** es una plataforma de análisis y visualización de datos que trabaja junto con Elasticsearch. Permite explorar, visualizar y analizar grandes volúmenes de datos a través de gráficos interactivos, tablas y dashboards. Es ampliamente utilizada para monitorización de logs, ofreciendo herramientas para buscar y filtrar eventos en tiempo real, crear alertas basadas en patrones de comportamiento, y generar dashboards personalizados que facilitan el análisis de datos y la toma de decisiones en entornos de monitorización, seguridad y operaciones.
