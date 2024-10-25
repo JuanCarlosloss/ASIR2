@@ -17,6 +17,11 @@ En la pestaña SAI, marque la casilla Habilitar servidor SAI de red para permiti
 - Introduzca la dirección IP del servidor SAI de red en el campo IP del servidor UPS de red.
 - Haga clic en Aplicar para guardar la configuración.
 ### Fase 2: Visita los asistentes recomendadores de 3 de las principales marcas de SAI (Salicru, CyberPower y APC), y encuentra para cada marca el modelo “enrackacle” más apropiado para una carga aproximada de 4000 VA(Voltio-Amperios).
+#### Salicru
+- https://www.salicru.com/sais/sps-advance-rt2.html **(Máximo 3000VA no hay de 4000VA)**
+- **846€**
+- ![71K12logzqL _AC_SX569_](https://github.com/user-attachments/assets/76eee0fc-d9f1-47ec-b3e2-a9f6f5b4c1cb)
+#### CyberPower
 ### Fase 3: Simulación de SAI con NUT, Kibana, Prometheus y Grafana.
 - **La herramienta NUT** (Network UPS Tools) permite simular el comportamiento de un SAI (Sistema de Alimentación Ininterrumpida) mediante un driver llamado dummy-ups, que crea un dispositivo UPS virtual. Esto es útil para pruebas o prácticas sin tener un hardware físico. La simulación incluye el estado de la batería, el tiempo de respaldo, el voltaje, y otros parámetros que un SAI real reportaría.	
 - **Kibana** es una plataforma de análisis y visualización de datos que trabaja junto con Elasticsearch. Permite explorar, visualizar y analizar grandes volúmenes de datos a través de gráficos interactivos, tablas y dashboards. Es ampliamente utilizada para monitorización de logs, ofreciendo herramientas para buscar y filtrar eventos en tiempo real, crear alertas basadas en patrones de comportamiento, y generar dashboards personalizados que facilitan el análisis de datos y la toma de decisiones en entornos de monitorización, seguridad y operaciones.
