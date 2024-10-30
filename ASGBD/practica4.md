@@ -30,3 +30,24 @@ En la pestaña SAI, marque la casilla Habilitar servidor SAI de red para permiti
 - **Kibana** es una plataforma de análisis y visualización de datos que trabaja junto con Elasticsearch. Permite explorar, visualizar y analizar grandes volúmenes de datos a través de gráficos interactivos, tablas y dashboards. Es ampliamente utilizada para monitorización de logs, ofreciendo herramientas para buscar y filtrar eventos en tiempo real, crear alertas basadas en patrones de comportamiento, y generar dashboards personalizados que facilitan el análisis de datos y la toma de decisiones en entornos de monitorización, seguridad y operaciones.
 - **Prometheus** es una herramienta de monitoreo y alerta diseñada para recolectar, almacenar y consultar métricas de sistemas y servicios en tiempo real. Las métricas recolectadas pueden ser consultadas para análisis y alerta cuando ciertos valores superan umbrales definidos, lo que lo convierte en una herramienta esencial para la observabilidad y el monitoreo proactivo de infraestructuras.
 **Grafana** es una plataforma de visualización de datos que permite crear dashboards dinámicos para representar gráficamente métricas de sistemas y servicios. Funciona con diferentes fuentes de datos, como Prometheus, InfluxDB o Elasticsearch, para mostrar información en gráficos, tablas y alertas visuales en tiempo real. 
+## Parte 1: Configuración de NUT en modo simulado
+
+### Instalar NUT.
+
+#### Configurar NUT en modo simulado:
+
+- Edita el archivo de configuración de NUT (/etc/nut/ups.conf) y configura un SAI simulado usando el driver dummy-ups.
+Añade la siguiente configuración para simular un SAI: [simups] driver = dummy-ups port = /dev/ttyS0 battery.charge = 80 # Simula un 80% de carga de batería ups.status = OL # SAI en línea, sin problemas desc = "Simulated UPS"
+Configurar el servicio de NUT:
+![image](https://github.com/user-attachments/assets/933c181e-780c-4ce9-b720-91b1e62a0c1f)
+
+
+- Edita el archivo /etc/nut/upsmon.conf para definir la monitorización del SAI:
+MONITOR simups@localhost 1 upuser password master
+Asegúrate de que los permisos del archivo estén correctamente configurados.
+Iniciar el servicio de NUT.
+![image](https://github.com/user-attachments/assets/c17bf5e8-bba9-4619-8985-24c2d310b69f)
+
+
+- Verificar el estado del SAI simulado.
+![image](https://github.com/user-attachments/assets/5cc84152-c9bf-49df-9b4f-c05859d10cb7)
