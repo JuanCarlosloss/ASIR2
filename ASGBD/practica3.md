@@ -21,12 +21,12 @@ Crea las siguientes tablas básicas con las restricciones adecuadas:
 - fecha_recoleccion (DATE, NOT NULL): Fecha en la que se recogió la mandarina.
 - ![image](https://github.com/user-attachments/assets/12767c86-8bd9-4a00-b14b-c48062ea81fb)
 
-##### Melocotones:
+#### Melocotones:
 - id_melocoton (INTEGER, PK, AUTOINCREMENT): Identificador único para cada melocotón.
 - tipo (TEXT, NOT NULL): Tipo de melocotón.
 - suave (BOOLEAN, NOT NULL): Indica si el melocotón es suave (1) o no (0).
 - ![image](https://github.com/user-attachments/assets/4326e1a1-87e0-4b95-8eee-e7fce7783043)
-##### Caquis:
+#### Caquis:
 - id_caqui (INTEGER, PK, AUTOINCREMENT): Identificador único para cada caqui.
 - id_mandarina (INTEGER, FK, NOT NULL): Relacionado con id_mandarina en la tabla mandarinas.
 - id_melocoton (INTEGER, FK, NOT NULL): Relacionado con id_melocoton en la tabla melocotones.
@@ -34,17 +34,17 @@ Crea las siguientes tablas básicas con las restricciones adecuadas:
 - pedunculo (BOOLEAN, NOT NULL): Indica si el caqui tiene pedúnculo (1) o no (0).
 - tiempo_maduracion (INTEGER, NOT NULL): Tiempo de maduración en días.
 - ![image](https://github.com/user-attachments/assets/8d6d7caf-6c72-44d5-a098-f5dcba02466c)
-1.2. Tamaño y más...
+#### 1.2. Tamaño y más...
 Justifica cuánto ocupa tu base de datos en disco. ¿En qué momento aumenta de tamaño si se mete más info? ¿como DBA harías algo para optimizar esto?
-3. Optimización del rendimiento y mantenimiento (5 puntos)
+#### 3. Optimización del rendimiento y mantenimiento (5 puntos)
 Se ha encontrado un trozo de log de consultas a la base de datos durante el día 27 de octubre de 2024. Se pide que optimizaciones realizarías y por qué para mejorar la base de datos en función de la información que te ofrece el log y justifícalo.
 PISTA: Utiliza EXPLAIN QUERY PLAN y chequea todos los PRAGMAS de SQLite.
-4. Copias de seguridad y restauración (2.5 puntos)
-3.1 Realización de una copia de seguridad con el nombre frutas_bonitas_bonitas.db
-3.2 Realiza la restauración desde la copia de seguridad
-3.3 Automatización de backups
+#### 4. Copias de seguridad y restauración (2.5 puntos)
+#### 3.1 Realización de una copia de seguridad con el nombre frutas_bonitas_bonitas.db
+#### 3.2 Realiza la restauración desde la copia de seguridad
+#### 3.3 Automatización de backups
 Crea un script para backups automáticos y que ejecute todos los días a las 23:59:59
-5. Preguntas sin ChatGPT ni IA's: (0.5 puntos)
+#### 5. Preguntas sin ChatGPT ni IA's: (0.5 puntos)
 ¿Cómo impactan los cambios en el PRAGMA en el rendimiento y la seguridad de la base de datos?
 ¿Qué mecanismos adicionales usarías para proteger una base de datos SQLite en un entorno de producción?
 ¿Qué diferencia existe entre los modos de journaling como DELETE, TRUNCATE y WAL en SQLite?
