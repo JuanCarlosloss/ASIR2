@@ -14,19 +14,19 @@ bash
 1. Configuración de la base de datos (2 puntos)
 1.1. Creación de tablas y estructura
 Crea las siguientes tablas básicas con las restricciones adecuadas:
-Mandarinas:
+##### Mandarinas:
 - id_mandarina (INTEGER, PK, AUTOINCREMENT): Identificador único para cada mandarina.
 - color (TEXT, NOT NULL): Color de la mandarina.
 - nombre (TEXT, NOT NULL): Nombre de la mandarina.
 - fecha_recoleccion (DATE, NOT NULL): Fecha en la que se recogió la mandarina.
 - ![image](https://github.com/user-attachments/assets/12767c86-8bd9-4a00-b14b-c48062ea81fb)
 
-Melocotones:
+###### Melocotones:
 - id_melocoton (INTEGER, PK, AUTOINCREMENT): Identificador único para cada melocotón.
 - tipo (TEXT, NOT NULL): Tipo de melocotón.
 - suave (BOOLEAN, NOT NULL): Indica si el melocotón es suave (1) o no (0).
 - ![image](https://github.com/user-attachments/assets/4326e1a1-87e0-4b95-8eee-e7fce7783043)
-Caquis:
+###### Caquis:
 - id_caqui (INTEGER, PK, AUTOINCREMENT): Identificador único para cada caqui.
 - id_mandarina (INTEGER, FK, NOT NULL): Relacionado con id_mandarina en la tabla mandarinas.
 - id_melocoton (INTEGER, FK, NOT NULL): Relacionado con id_melocoton en la tabla melocotones.
