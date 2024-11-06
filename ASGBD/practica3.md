@@ -15,24 +15,24 @@ bash
 1.1. Creación de tablas y estructura
 Crea las siguientes tablas básicas con las restricciones adecuadas:
 Mandarinas:
-id_mandarina (INTEGER, PK, AUTOINCREMENT): Identificador único para cada mandarina.
-color (TEXT, NOT NULL): Color de la mandarina.
-nombre (TEXT, NOT NULL): Nombre de la mandarina.
-fecha_recoleccion (DATE, NOT NULL): Fecha en la que se recogió la mandarina.
+- id_mandarina (INTEGER, PK, AUTOINCREMENT): Identificador único para cada mandarina.
+- color (TEXT, NOT NULL): Color de la mandarina.
+- nombre (TEXT, NOT NULL): Nombre de la mandarina.
+- fecha_recoleccion (DATE, NOT NULL): Fecha en la que se recogió la mandarina.
 - ![image](https://github.com/user-attachments/assets/12767c86-8bd9-4a00-b14b-c48062ea81fb)
 
 Melocotones:
-id_melocoton (INTEGER, PK, AUTOINCREMENT): Identificador único para cada melocotón.
-tipo (TEXT, NOT NULL): Tipo de melocotón.
-suave (BOOLEAN, NOT NULL): Indica si el melocotón es suave (1) o no (0).
+- id_melocoton (INTEGER, PK, AUTOINCREMENT): Identificador único para cada melocotón.
+- tipo (TEXT, NOT NULL): Tipo de melocotón.
+- suave (BOOLEAN, NOT NULL): Indica si el melocotón es suave (1) o no (0).
 - ![image](https://github.com/user-attachments/assets/4326e1a1-87e0-4b95-8eee-e7fce7783043)
 Caquis:
-id_caqui (INTEGER, PK, AUTOINCREMENT): Identificador único para cada caqui.
-id_mandarina (INTEGER, FK, NOT NULL): Relacionado con id_mandarina en la tabla mandarinas.
-id_melocoton (INTEGER, FK, NOT NULL): Relacionado con id_melocoton en la tabla melocotones.
-color (TEXT, NOT NULL): Color del caqui.
-pedunculo (BOOLEAN, NOT NULL): Indica si el caqui tiene pedúnculo (1) o no (0).
-tiempo_maduracion (INTEGER, NOT NULL): Tiempo de maduración en días.
+- id_caqui (INTEGER, PK, AUTOINCREMENT): Identificador único para cada caqui.
+- id_mandarina (INTEGER, FK, NOT NULL): Relacionado con id_mandarina en la tabla mandarinas.
+- id_melocoton (INTEGER, FK, NOT NULL): Relacionado con id_melocoton en la tabla melocotones.
+- color (TEXT, NOT NULL): Color del caqui.
+- pedunculo (BOOLEAN, NOT NULL): Indica si el caqui tiene pedúnculo (1) o no (0).
+- tiempo_maduracion (INTEGER, NOT NULL): Tiempo de maduración en días.
 - ![image](https://github.com/user-attachments/assets/8d6d7caf-6c72-44d5-a098-f5dcba02466c)
 1.2. Tamaño y más...
 Justifica cuánto ocupa tu base de datos en disco. ¿En qué momento aumenta de tamaño si se mete más info? ¿como DBA harías algo para optimizar esto?
