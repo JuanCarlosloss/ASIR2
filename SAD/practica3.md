@@ -140,16 +140,19 @@ usuarios.
 #### Habilita ACLs en el sistema si no están habilitadas (si ya lo están, omite este paso):
 
 #### Crea un archivo llamado osaka.txt dentro de archivos_criticos.
-
+- ![image](https://github.com/user-attachments/assets/3608ac91-56bb-4955-b3c3-3df614c9f8f8)
 #### Añade una ACL para que birmingham3 pueda leer el archivo osaka.txt, pero no modificarlo.
-
+- ![image](https://github.com/user-attachments/assets/c866be43-d023-41af-a495-4b5918cef778)
+- setfacl -m u:birmingham3:r archivos_criticos/osaka.txt
 #### Verifica y muestra las ACLs del archivo:
-
+- ![image](https://github.com/user-attachments/assets/d4bff029-d85e-46f1-ad32-77288ff3a9f8)
+- getfacl archivos_criticos/osaka.txt
 ### Preguntas:
 
 ### ¿Cómo afectan las ACLs al comportamiento de permisos tradicionales?
+- Las ACLs permiten definir permisos adicionales que los permisos tradicionales no pueden. Con ACLs, es posible establecer permisos específicos para usuarios individuales sin afectar los permisos del propietario o el grupo principal del archivo. Esto proporciona un control de acceso más granular en un entorno multiusuario.
 ### ¿Qué sucede si birmingham3 intenta modificar el archivo?
-
+- Si birmingham3 intenta modificar el archivo osaka.txt, no podrá hacerlo debido a que solo tiene permisos de lectura según la ACL. Cualquier intento de modificar o guardar cambios en el archivo resultará en un error de "permiso denegado".
 ## Ejercicio 6: Auditoría y control de accesos mediante logs de permisos
 
 ### Escenario:
@@ -159,20 +162,26 @@ usuarios.
 ### Paso 1: Configuración de auditoría de accesos con auditd
 
 #### Instala el servicio de auditoría si no está instalado.
+- ![image](https://github.com/user-attachments/assets/a751cc6e-8c97-4d04-bf55-15cd873def6e)
 #### Configura una regla para auditar los accesos al archivo archivo_tronko2.txt.
-
+- ![image](https://github.com/user-attachments/assets/96cef8b7-f427-47d5-af0b-ba4616f85ef7)
+- **-p rwxa:** define los permisos a auditar (lectura, escritura, ejecución y cambios de atributos).
+- **-k acceso_archivo_tronko2:** agrega una etiqueta para identificar los eventos relacionados.
 ### Paso 2: Verificación de logs de auditoría
 
 #### Accede al archivo archivo_tronko2.txt como moon1.
-
+- ![image](https://github.com/user-attachments/assets/de21e9ba-c0de-4ce9-8b91-05b855c522f2)
 #### Verifica e interpreta los logs de auditoría.
+- ![image](https://github.com/user-attachments/assets/8d3411b3-bbf5-4685-a45b-a9ee31320052)
 #### Accede al archivo archivo_tronko2.txt como tronko2.
-
+- ![image](https://github.com/user-attachments/assets/4e915849-41b5-41f9-8d89-11164b24e129)
 #### Verifica e interpreta los logs de auditoría.
+- ![image](https://github.com/user-attachments/assets/f7db63c0-9957-42a1-8168-0f3dc9272982)
 #### Accede al archivo archivo_tronko2.txt como birmingham3.
-
+- ![image](https://github.com/user-attachments/assets/73a935ca-7188-4922-a95a-d212a764368a)
 #### Verifica e interpreta los logs de auditoría.
-
+- ![image](https://github.com/user-attachments/assets/753630c2-3ff8-4f1d-9494-daa0aff7f637)
 ### Pregunta:
 
 ### ¿Cómo puedes usar las auditorías para mejorar la seguridad de tu sistema?
+- Las auditorías permiten monitorear el acceso y las acciones realizadas en archivos críticos, ayudando a detectar actividades no autorizadas o sospechosas. Con los logs generados, los administradores pueden identificar intentos de acceso inapropiados, lo que permite actuar rápidamente para prevenir o mitigar brechas de seguridad.
