@@ -64,13 +64,16 @@ PISTA: Utiliza EXPLAIN QUERY PLAN y chequea todos los PRAGMAS de SQLite.
 - 0 0 * * * /home/alumno/Documents/frutitas.db ".backup /home/alumno/Documents/frutas_bonitas_bonitas_$(date +\%Y\%m\%d\%H\%M\%S).db"
 - ![image](https://github.com/user-attachments/assets/67daba4a-9cab-460d-ad87-4c4e6a9f9876)
 
-#### 5. Preguntas sin ChatGPT ni IA's: (0.5 puntos)
-- ¿Cómo impactan los cambios en el PRAGMA en el rendimiento y la seguridad de la base de datos?
+### 5. Preguntas sin ChatGPT ni IA's: (0.5 puntos)
+#### ¿Cómo impactan los cambios en el PRAGMA en el rendimiento y la seguridad de la base de datos?
 * PRAGMA synchronous: Ajustado a NORMAL o OFF mejora el rendimiento al reducir escrituras en disco, pero disminuye la durabilidad en caso de fallo.
 * PRAGMA journal_mode: WAL aumenta la concurrencia y mejora la velocidad en lecturas/escrituras simultáneas
 * PRAGMA cache_size: Aumentar la caché mejora la velocidad al reducir accesos a disco
-- ¿Qué mecanismos adicionales usarías para proteger una base de datos SQLite en un entorno de producción?
+#### ¿Qué mecanismos adicionales usarías para proteger una base de datos SQLite en un entorno de producción?
 * Cifrado: Protege los datos sensibles en caso de acceso no autorizado.
 * Control de acceso al archivo: Establecer permisos de archivo restrictivos en el sistema operativo para proteger la base de datos contra accesos no deseados.
 * Backups regulares: Garantizan recuperación de datos en caso de corrupción o pérdida.
-- ¿Qué diferencia existe entre los modos de journaling como DELETE, TRUNCATE y WAL en SQLite?
+#### ¿Qué diferencia existe entre los modos de journaling como DELETE, TRUNCATE y WAL en SQLite?
+* DELETE: Elimina el registro de cambios al final de cada transacción; seguro pero más lento en concurrencia.
+* TRUNCATE: Similar a DELETE pero elimina más rápido el journal; ligera mejora de rendimiento.
+* WAL: Mantiene un registro de cambios aparte; ideal para concurrencia ya que permite lecturas simultáneas a las escrituras, mejorando el rendimiento en sistemas multiusuario.
