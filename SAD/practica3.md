@@ -112,22 +112,27 @@ usuarios.
 ### Paso 1: Configurar umask
 
 #### Verifica el valor actual de umask.
-
+- ![image](https://github.com/user-attachments/assets/cec00470-f4ac-4f42-847c-bcdf116a24b1)
+- umask
 #### Cambia el valor de umask a 077 para que los archivos creados sean accesibles solo por el propietario.
-
+- ![image](https://github.com/user-attachments/assets/1b879497-d0c1-43d1-b3ef-2fdb88832247)
+- umask 077
 ### Paso 2: Crear archivos de prueba
 
 #### Crea un archivo nuevo llamado gomaseps_umask y verifica sus permisos.
-
+- ![image](https://github.com/user-attachments/assets/30744dc8-9c77-4185-8785-6558e6b3e24e)
+- ![image](https://github.com/user-attachments/assets/6cc3267d-94a6-450c-9bbc-ff6ab03d9bcb)
 ### Paso 3: Restablecer umask
 
 #### Si deseas restaurar el valor predeterminado de umask, puedes hacerlo:
+- ![image](https://github.com/user-attachments/assets/d11985d5-f203-4724-86ee-b840e16b0701)
 
 ### Preguntas:
 
 ### ¿Cómo afectó el valor de umask a los permisos de los nuevos archivos?
+- El valor umask 077 asegura que los archivos nuevos tengan permisos restrictivos, permitiendo solo al propietario leer y escribir, mientras que el grupo y otros no tienen acceso.
 ### ¿Cómo podrías usar umask para mejorar la seguridad de los archivos en un sistema multiusuario?
-
+- Configurar umask con un valor como 077 es útil en entornos multiusuario para evitar que otros usuarios accedan a archivos privados.
 ## Ejercicio 5: Implementación de ACLs
 
 ### Queremos que birmingham3 pueda leer un archivo específico dentro de un nuevo directorio que se tiene que crear llamado archivos_criticos, pero sin poder modificarlo.
