@@ -43,3 +43,62 @@
 - No podrá acceder al directorio ya que los permisos están limitados a devEliza.
 #### ¿Qué sucede si tronko2 intenta modificar un archivo dentro del directorio?
 - tronko2 solo tendrá permisos de lectura y ejecución, por lo tanto no podrá modificar archivos.
+
+﻿
+
+## Ejercicio 2: Control de Acceso con el Bit SGID en Directorios
+### Escenario:
+### El equipo de desarrollo necesita colaborar en un subdirectorio dentro de di recto. Queremos asegurarnos de que cualquier archivo creado en ese subdirectorio tenga automáticamente el mismo grupo propietario (devEria2), para facilitar la colaboración.
+### Paso 1: Crear un subdirectorio para colaboración
+#### Crea un subdirectorio llamado di_afano dentro de /di_recto:
+- ![image](https://github.com/user-attachments/assets/c49ab9b9-638b-4f30-bed8-055a36e2a88f)
+- sudo mkdir di_reto/di_afano 
+#### Cambia el grupo propietario del subdirectorio a deveria2
+- ![image](https://github.com/user-attachments/assets/3ad7327e-be9b-4b7f-b7f4-91fa734f11d3)
+- sudo chown :devEliza di_reto/di_afano 
+- ![image](https://github.com/user-attachments/assets/85503f44-6d05-449f-85d5-5a707012ffec)
+#### Paso 2: Aplicar el bit SGID
+#### Aplica el bit SGID al subdirectorio di_afano, para que todos los archivos creados en él hereden el grupo propietario
+- ![image](https://github.com/user-attachments/assets/7c061877-b3cf-4405-a0b9-5dff0321bead)
+- sudo chmod 2770 di_reto/di_afano
+#### Verifica y muestra los permisos del subdirectorio:
+- ![image](https://github.com/user-attachments/assets/0eece4c6-d2df-4eb9-95aa-b7eea0eb303d)
+### Paso 3: Crear archivos de prueba
+#### Cambia a tronko2 y crea un archivo llamado archivo_tronko2.txt dentro del subdirectorio di_afano
+- ![image](https://github.com/user-attachments/assets/90ada6b7-5961-4a44-a34e-8c0f5855484c)
+#### Verifica y muestra los permisos y el grupo propietario del archivo:
+![image](https://github.com/user-attachments/assets/366426a5-6676-4143-b3ea-cd65f47fae48)
+#### Preguntas:
+### ¿Cuál es el grupo propietario del archivo creado por tronko2?
+- El grupo propietario será devEliza debido a que el bit SGID se aplicó al directorio, asegurando que todos los archivos creados en él hereden este grupo.
+### ¿Qué ventaja aporta el bit SGID en un entorno de colaboración?
+- El bit SGID permite que todos los archivos creados dentro del directorio tengan el mismo grupo propietario (devEliza), facilitando que cualquier miembro del grupo acceda y colabore en los archivos sin necesidad de cambiar manualmente el grupo propietario cada vez que se crea un archivo.
+
+## Ejercicio 3: Gestión de Archivos Temporales con Sticky Bit
+### Escenario:
+#### Se ha creado un directorio temporal compartido entre todos los usuarios del sistema. Necesitas asegurarte de que los usuarios puedan crear y modificar sus propios archivos, pero no puedan eliminar o modificar los archivos de otros
+usuarios.
+### Paso 1: Crear un directorio temporal
+#### Crea un directorio llamado tmp_rano en /tmp
+- ![image](https://github.com/user-attachments/assets/5821e6d2-7b6e-4212-aab6-1e5eed21befd)
+- sudo mkdir /tmp/tmp_rano
+#### Cambia los permisos para que todos los usuarios puedan leer, escribir y ejecutar en el directorio
+- ![image](https://github.com/user-attachments/assets/b8b7c838-da6a-46fc-9416-f18db713b069)ls 
+- sudo chmod 777 /tmp/tmp_rano
+- ![image](https://github.com/user-attachments/assets/3a2d9bee-bf89-4f80-9722-59e5485f7f93)
+### Paso 2: Aplicar el sticky bit Aplica el sticky bit al directorio para evitar que los usuarios eliminen archivos de otros
+- sudo chmod +t /tmp/tmp_rano
+#### Verifica los permisos del directorio
+![image](https://github.com/user-attachments/assets/ac433657-8558-41ce-aabe-8c67b45b0655)
+### Paso 3: Crear archivos de prueba
+#### Cambia a monon1 y crea un archivo en el directorio temporal
+- ![image](https://github.com/user-attachments/assets/32a64f9a-05d5-4b0d-8111-5fae13bab67b)
+- sudo -u monon1 touch /tmp/tmp_rano/archivo_monon1.txt
+#### Cambia a birmingan3 y verifica si puede eliminar el archivo de monon1
+- ![image](https://github.com/user-attachments/assets/fcd03fc8-96c4-4c07-875d-44a7a9b3654a)
+- sudo -u birmingham3 rm /tmp/tmp_rano/archivo_monon1.txt
+###Preguntas:
+### ¿Pudo birmingan3 eliminar el archivo de monon1? ¿Por qué?
+- No, birmingham3 no pudo eliminar el archivo de monon1 porque el Sticky Bit impide que otros usuarios eliminen archivos que no son de su propiedad en el directorio compartido.
+### ¿Cómo ayuda el sticky bit a mejorar la seguridad en directorios compartidos?
+- El Sticky Bit asegura que solo los propietarios de los archivos y el administrador del sistema puedan eliminar o modificar los archivos en un directorio compartido, evitando que otros usuarios interfieran con los archivos ajenos.
