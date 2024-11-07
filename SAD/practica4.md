@@ -34,20 +34,32 @@ En la pestaña SAI, marque la casilla Habilitar servidor SAI de red para permiti
 
 ### Instalar NUT.
 
-#### Configurar NUT en modo simulado:
+### Configurar NUT en modo simulado:
 
-- Edita el archivo de configuración de NUT (/etc/nut/ups.conf) y configura un SAI simulado usando el driver dummy-ups.
+#### Edita el archivo de configuración de NUT (/etc/nut/ups.conf) y configura un SAI simulado usando el driver dummy-ups.
 Añade la siguiente configuración para simular un SAI: [simups] driver = dummy-ups port = /dev/ttyS0 battery.charge = 80 # Simula un 80% de carga de batería ups.status = OL # SAI en línea, sin problemas desc = "Simulated UPS"
 Configurar el servicio de NUT:
 ![image](https://github.com/user-attachments/assets/933c181e-780c-4ce9-b720-91b1e62a0c1f)
 
-
-- Edita el archivo /etc/nut/upsmon.conf para definir la monitorización del SAI:
+#### Edita el archivo /etc/nut/upsmon.conf para definir la monitorización del SAI:
 MONITOR simups@localhost 1 upuser password master
 Asegúrate de que los permisos del archivo estén correctamente configurados.
 Iniciar el servicio de NUT.
-![image](https://github.com/user-attachments/assets/c17bf5e8-bba9-4619-8985-24c2d310b69f)
+- ![image](https://github.com/user-attachments/assets/c17bf5e8-bba9-4619-8985-24c2d310b69f)
 
+#### Verificar el estado del SAI simulado.
+- ![image](https://github.com/user-attachments/assets/5cc84152-c9bf-49df-9b4f-c05859d10cb7)
 
-- Verificar el estado del SAI simulado.
-![image](https://github.com/user-attachments/assets/5cc84152-c9bf-49df-9b4f-c05859d10cb7)
+## Parte 2: Monitorización de eventos con Kibana
+### 1. Instalar Kibana.
+### 2. Configurar NUT para enviar logs.
+#### NUT registra eventos críticos, como batería baja o fallos de alimentación, en el archivo de log del sistema. Estos logs pueden enviarse a Kibana para su análisis. Asegúrate de que rsyslog esté configurado para enviar los logs al puerto adecuado de Kibana.
+### 3. Crear filtros y dashboards en Kibana para analizar y visualizar los logs generados por NUT.
+#### Configura Kibana para analizar y visualizar los logs generados por NUT, tales como:
+- Estado de la batería.
+- Tiempo de respaldo.
+- Eventos críticos como sobrecarga o fallo de alimentación.
+#### Crea un dashboard que muestre visualmente los eventos más rele- vantes, como las caídas de energía o la activación del modo batería. 4. Simulación de eventos críticos.
+#### Cambia los parámetros en el archivo de configuración de NUT (ups.conf) para simular eventos como batería baja o fallo de alimentación:
+- ups.status = OB LB # Modo batería, baja carga
+- battery.charge = 10 # Simula un 10% de batería restante Reinicia NUT y verifica cómo se registran los eventos en Kibana. Estos eventos deberían aparecer como logs críticos, que pueden generar alertas si están configuradas.
