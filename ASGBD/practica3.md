@@ -10,9 +10,9 @@
 bash
 - Copiar código
 - sqlite3 --version
-### Crea una base de datos llamada frutas.db que almacenará la información de mandarinas, melocotones y caquis.
-1. Configuración de la base de datos (2 puntos)
-1.1. Creación de tablas y estructura
+## Crea una base de datos llamada frutas.db que almacenará la información de mandarinas, melocotones y caquis.
+### 1. Configuración de la base de datos (2 puntos)
+### 1.1. Creación de tablas y estructura
 Crea las siguientes tablas básicas con las restricciones adecuadas:
 #### Mandarinas:
 - id_mandarina (INTEGER, PK, AUTOINCREMENT): Identificador único para cada mandarina.
@@ -34,14 +34,14 @@ Crea las siguientes tablas básicas con las restricciones adecuadas:
 - pedunculo (BOOLEAN, NOT NULL): Indica si el caqui tiene pedúnculo (1) o no (0).
 - tiempo_maduracion (INTEGER, NOT NULL): Tiempo de maduración en días.
 - ![image](https://github.com/user-attachments/assets/8d6d7caf-6c72-44d5-a098-f5dcba02466c)
-#### 1.2. Tamaño y más...
+### 1.2. Tamaño y más...
 Justifica cuánto ocupa tu base de datos en disco. ¿En qué momento aumenta de tamaño si se mete más info? ¿como DBA harías algo para optimizar esto?
 - el tamaño de la base de datos en disco depende del número de filas y columnas, así como de los tipos de datos y el índice que se usan.
 #### Optimización 
 - Compactación
 - Índices adecuados
 - Tipos de datos eficientes
-#### 3. Optimización del rendimiento y mantenimiento (5 puntos)
+### 3. Optimización del rendimiento y mantenimiento (5 puntos)
 Se ha encontrado un trozo de log de consultas a la base de datos durante el día 27 de octubre de 2024. Se pide que optimizaciones realizarías y por qué para mejorar la base de datos en función de la información que te ofrece el log y justifícalo.
 PISTA: Utiliza EXPLAIN QUERY PLAN y chequea todos los PRAGMAS de SQLite.
 - Consultas repetitivas: Varias consultas seleccionan los mismos campos repetidamente, como SELECT color, tamaño FROM Mandarinas.
@@ -53,13 +53,13 @@ PISTA: Utiliza EXPLAIN QUERY PLAN y chequea todos los PRAGMAS de SQLite.
 - CREATE INDEX idx_mandarinas_fecha_recogida ON Mandarinas (fecha_recogida);
 - CREATE INDEX idx_mandarinas_tamaño ON Mandarinas (tamaño);
 - CREATE INDEX idx_mandarinas_color ON Mandarinas (color);
-#### 4. Copias de seguridad y restauración (2.5 puntos)
-#### 3.1 Realización de una copia de seguridad con el nombre frutas_bonitas_bonitas.db
+### 4. Copias de seguridad y restauración (2.5 puntos)
+### 4.1 Realización de una copia de seguridad con el nombre frutas_bonitas_bonitas.db
 - sqlite3 nombre_original.db ".backup frutas_bonitas_bonitas.db"
 - ![image](https://github.com/user-attachments/assets/33ac875f-930f-4d59-acda-e445bf95cd81)
-#### 3.2 Realiza la restauración desde la copia de seguridad
+### 4.2 Realiza la restauración desde la copia de seguridad
 - ![image](https://github.com/user-attachments/assets/b1ded0a2-4af3-4bf5-a4ff-d370f0748942)
-#### 3.3 Automatización de backups
+### 4.3 Automatización de backups
 - Crea un script para backups automáticos y que ejecute todos los días a las 23:59:59
 - 0 0 * * * /home/alumno/Documents/frutitas.db ".backup /home/alumno/Documents/frutas_bonitas_bonitas_$(date +\%Y\%m\%d\%H\%M\%S).db"
 - ![image](https://github.com/user-attachments/assets/67daba4a-9cab-460d-ad87-4c4e6a9f9876)
