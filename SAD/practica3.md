@@ -102,3 +102,72 @@ usuarios.
 - No, birmingham3 no pudo eliminar el archivo de monon1 porque el Sticky Bit impide que otros usuarios eliminen archivos que no son de su propiedad en el directorio compartido.
 ### ¿Cómo ayuda el sticky bit a mejorar la seguridad en directorios compartidos?
 - El Sticky Bit asegura que solo los propietarios de los archivos y el administrador del sistema puedan eliminar o modificar los archivos en un directorio compartido, evitando que otros usuarios interfieran con los archivos ajenos.
+
+## Ejercicio 4: Configuración de umask y Creación de Archivos Nuevos
+
+### Escenario:
+
+#### Quieres configurar el entorno de trabajo para que todos los archivos nuevos creados por los usuarios tengan permisos predeterminados restrictivos (solo lectura y escritura para el propietario, sin acceso para el grupo y otros).
+
+### Paso 1: Configurar umask
+
+#### Verifica el valor actual de umask.
+
+#### Cambia el valor de umask a 077 para que los archivos creados sean accesibles solo por el propietario.
+
+### Paso 2: Crear archivos de prueba
+
+#### Crea un archivo nuevo llamado gomaseps_umask y verifica sus permisos.
+
+### Paso 3: Restablecer umask
+
+#### Si deseas restaurar el valor predeterminado de umask, puedes hacerlo:
+
+### Preguntas:
+
+### ¿Cómo afectó el valor de umask a los permisos de los nuevos archivos?
+### ¿Cómo podrías usar umask para mejorar la seguridad de los archivos en un sistema multiusuario?
+
+## Ejercicio 5: Implementación de ACLs
+
+### Queremos que birmingham3 pueda leer un archivo específico dentro de un nuevo directorio que se tiene que crear llamado archivos_criticos, pero sin poder modificarlo.
+
+#### Habilita ACLs en el sistema si no están habilitadas (si ya lo están, omite este paso):
+
+#### Crea un archivo llamado osaka.txt dentro de archivos_criticos.
+
+#### Añade una ACL para que birmingham3 pueda leer el archivo osaka.txt, pero no modificarlo.
+
+#### Verifica y muestra las ACLs del archivo:
+
+### Preguntas:
+
+### ¿Cómo afectan las ACLs al comportamiento de permisos tradicionales?
+### ¿Qué sucede si birmingham3 intenta modificar el archivo?
+
+## Ejercicio 6: Auditoría y control de accesos mediante logs de permisos
+
+### Escenario:
+
+#### Como administrador, necesitas auditar los accesos a archivos críticos para asegurarte de que nadie acceda de manera indebida a los datos sensibles. Implementarás auditorías en archivos clave para monitorear el acceso.
+
+### Paso 1: Configuración de auditoría de accesos con auditd
+
+#### Instala el servicio de auditoría si no está instalado.
+#### Configura una regla para auditar los accesos al archivo archivo_tronko2.txt.
+
+### Paso 2: Verificación de logs de auditoría
+
+#### Accede al archivo archivo_tronko2.txt como moon1.
+
+#### Verifica e interpreta los logs de auditoría.
+#### Accede al archivo archivo_tronko2.txt como tronko2.
+
+#### Verifica e interpreta los logs de auditoría.
+#### Accede al archivo archivo_tronko2.txt como birmingham3.
+
+#### Verifica e interpreta los logs de auditoría.
+
+### Pregunta:
+
+### ¿Cómo puedes usar las auditorías para mejorar la seguridad de tu sistema?
