@@ -2,21 +2,72 @@
 ### Finalidad: 
 ### Se va a trabajar con comandos SQL para instalar PostgreSQL, crear tablas, gestionar usuarios, insertar y modificar datos, y a utilizar pgAdmin para la administración visual. 
 ## 1. Instalación de PostgreSQL en Linux 
-  ### 1. Actualiza los repositorios del sistema e instala PostgreSQL. 
+  ### 1. Actualiza los repositorios del sistema e instala PostgreSQL.
+  ```bash
+  sudo apt update
+  sudo apt install postgresql postgresql-contrib
+  ```
   ### 2. Inicia el servicio de PostgreSQL y configura el servicio para que se inicie automáticamente cada vez que se arranque el sistema. 
+  ```bash
+  sudo systemctl start postgresql
+  sudo systemctl enable postgresql
+  ```
   ### 3. Cambia al usuario postgres y abre la consola de PostgreSQL. 
+  ```bash
+  sudo -i -u postgres
+  psql
+  ```
 ## 2. Creación de la Base de Datos y Tablas 
 ### Paso 1: Crear la base de datos 
 ### 1. Conéctate a la consola de PostgreSQL como el usuario postgres. 
+  ```bash
+  sudo -i -u postgres
+  psql
+  ```
 ### 2. Crea una base de datos llamada EquitacionSuave y conectate a ella. 
+```sql
+CREATE DATABASE EquitacionSuave;
+\c equitacionsuave;
+```
 ## Paso 2: Crear las tablas principales 
 ### 1. Crea una tabla llamada jinetes que incluya los siguientes campos: id: un identificador único autoincrementado para cada jinete. nombre: el nombre del jinete. apellido: el apellido del jinete. categoria: una cadena que representa el nivel de habilidad (e.g., Avanzado, Intermedio, Principiante). experiencia_años: un número entero que indica los años de experiencia. 
+```sql
+CREATE TABLE jinetes (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    categoria VARCHAR(20),
+    experiencia_años INT
+);
+```
+- ![image](https://github.com/user-attachments/assets/dc231026-48ec-4358-a740-191947dd8705)
+
 ### 2. Crea una tabla llamada caballos que incluya los siguientes campos: id: un identificador único autoincrementado para cada caballo. nombre: el nombre del caballo. raza: la raza del caballo. edad: un número entero que representa la edad del caballo. o jinete_id: una referencia al id de la tabla jinetes, para indicar quién es el jinete actual del caballo. 
+```sql
+CREATE TABLE caballos (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50),
+    raza VARCHAR(50),
+    edad INT,
+    jinete_id INT REFERENCES jinetes(id)
+);
+```
+- ![image](https://github.com/user-attachments/assets/dc0d1bf7-7bd5-4cf6-8443-646c1b222039)
 ## 3. Gestión de Usuarios y Roles 
 ### Ejercicio 1: Crear usuarios con distintos niveles de permisos 
 ### 1. Crea un usuario admin_equitacion con permisos para iniciar sesión en PostgreSQL y con la capacidad de crear bases de datos. 
-### 2. Crea un usuario user_consultas que solo pueda realizar consultas en la base de datos. 
+```sql
+CREATE USER admin_equitacion WITH LOGIN CREATEDB PASSWORD '232425';
+```
+- 
+### 2. Crea un usuario user_consultas que solo pueda realizar consultas en la base de datos.
+```sql
+CREATE USER user_consultas WITH LOGIN PASSWORD '232425';
+```
 ### 3. Crea un usuario user_lectura que pueda ver datos en la base de datos pero no modificarlos. 
+```sql
+CREATE USER user_lectura WITH LOGIN PASSWORD '232425';
+```
 ### Ejercicio 2: Asignar permisos 
 ### 1. Conéctate a la base de datos EquitacionSuave. 
 ### 2. Asigna permisos de consulta (SELECT) a user_consultas en las tablas jinetes y  caballos. 
