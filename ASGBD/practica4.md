@@ -59,30 +59,79 @@ CREATE TABLE caballos (
 ```sql
 CREATE USER admin_equitacion WITH LOGIN CREATEDB PASSWORD '232425';
 ```
-- 
+- ![image](https://github.com/user-attachments/assets/01cf14b8-e274-4017-a138-58b4497856e5)
+
 ### 2. Crea un usuario user_consultas que solo pueda realizar consultas en la base de datos.
 ```sql
 CREATE USER user_consultas WITH LOGIN PASSWORD '232425';
 ```
+- ![image](https://github.com/user-attachments/assets/d80b4b4e-4a6b-436e-9215-9502610a5770)
 ### 3. Crea un usuario user_lectura que pueda ver datos en la base de datos pero no modificarlos. 
 ```sql
 CREATE USER user_lectura WITH LOGIN PASSWORD '232425';
 ```
+- ![image](https://github.com/user-attachments/assets/f25604e7-bb41-4135-9a69-1a761001e297)
 ### Ejercicio 2: Asignar permisos 
 ### 1. Conéctate a la base de datos EquitacionSuave. 
 ### 2. Asigna permisos de consulta (SELECT) a user_consultas en las tablas jinetes y  caballos. 
+```sql
+GRANT SELECT ON jinetes, caballos TO user_consultas;
+```
+- ![image](https://github.com/user-attachments/assets/0d5860cc-5831-4757-9d20-1435ee5c0a70)
 ### 3. Configura permisos para user_lectura para que solo pueda ver datos y no modificarlos en ambas tablas. 
+```
+GRANT SELECT ON jinetes, caballos TO user_lectura;
+```
+- ![image](https://github.com/user-attachments/assets/cbb2682a-2a29-4e82-9252-6d61c603dc29)
+
 ### 4. Da permisos completos (SELECT, INSERT, UPDATE, DELETE) al usuario  admin_equitacion en las tablas jinetes y caballos. 
+```sql
+GRANT ALL PRIVILEGES ON jinetes, caballos TO admin_equitacion;
+```
+- ![image](https://github.com/user-attachments/assets/74da6f28-dd30-4e73-a697-4c5da65d4855)
 ## 4. Inserción de Datos en las Tablas 
 ### 1. Inserta varios registros en la tabla jinetes con diferentes valores de nombres, apellidos, categorías y años de experiencia. 
+```sql
+INSERT INTO jinetes (nombre, apellido, categoria, experiencia_años)
+VALUES ('Juan', 'Pérez', 'Avanzado', 5),
+       ('María', 'López', 'Intermedio', 3);
+```
+- ![image](https://github.com/user-attachments/assets/3c927374-822e-4039-b6ae-4bdd988a878b)
 ### 2. Inserta varios registros en la tabla caballos, especificando el nombre, raza, edad, y el jinete_id correspondiente. 
+```sql
+INSERT INTO caballos (nombre, raza, edad, jinete_id)
+VALUES ('Relámpago', 'Pura Sangre', 7, 1),
+       ('Tormenta', 'Árabe', 5, 2);
+```
+-![image](https://github.com/user-attachments/assets/5f44d96d-4160-420d-b937-ff70974e73ed)
 ## 5. Consultas de Datos 
 ### 1. Realiza una consulta para obtener todos los registros de la tabla jinetes. 
+```sql
+SELECT * FROM jinetes;
+```
+- ![image](https://github.com/user-attachments/assets/996ec771-4da3-469f-902d-880498309aa8)
+
 ### 2. Realiza una consulta que muestre solo los jinetes con más de dos años de experiencia. 
+```sql
+SELECT * FROM jinetes WHERE experiencia_años > 2;
+```
+- ![image](https://github.com/user-attachments/assets/7cb00a13-c71f-4816-8811-c3ede20d47f8)
+
 ### 3. Realiza una consulta para obtener los nombres de los caballos junto con los nombres de sus respectivos jinetes. 
+```sql
+SELECT caballos.nombre AS caballo, jinetes.nombre AS jinete
+FROM caballos
+JOIN jinetes ON caballos.jinete_id = jinetes.id;
+```
+- ![image](https://github.com/user-attachments/assets/0b6b2e89-9b6d-42e5-9f94-98c5996407b5)
 ## 6. Actualización y Eliminación de Datos 
 ### 1. Realiza una actualización en la tabla jinetes para cambiar la categoría de un jinete. 
+```sql
+UPDATE jinetes SET categoria = 'Avanzado' WHERE nombre = 'María';
+```
+- ![image](https://github.com/user-attachments/assets/57c59521-feb7-496a-9247-8468e544fa38)
 ### 2. Realiza una eliminación en la tabla jinetes para borrar un registro específico. 
+
 ## 7. Uso de pgAdmin para Administración Visual 
 ### Paso 1: Acceso a pgAdmin y conexión al servidor PostgreSQL 
 ### 1. Abre pgAdmin y conéctate al servidor PostgreSQL usando las credenciales de postgres. 
