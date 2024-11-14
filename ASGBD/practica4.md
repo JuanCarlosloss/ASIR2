@@ -131,7 +131,17 @@ UPDATE jinetes SET categoria = 'Avanzado' WHERE nombre = 'María';
 ```
 - ![image](https://github.com/user-attachments/assets/57c59521-feb7-496a-9247-8468e544fa38)
 ### 2. Realiza una eliminación en la tabla jinetes para borrar un registro específico. 
-
+- Primero hay que configurar que los datos se puedan borrar en cascada para poder borrar los datos que estan en diferentes tablas relacionadas
+```sql
+ALTER TABLE caballos
+DROP CONSTRAINT caballos_jinete_id_fkey,
+ADD CONSTRAINT caballos_jinete_id_fkey FOREIGN KEY (jinete_id) REFERENCES jinetes(id) ON DELETE SET NULL;
+```
+- luego ya podremos borrar el registro
+```sql
+DELETE FROM jinetes WHERE id = 1;
+```
+- ![image](https://github.com/user-attachments/assets/a06dd567-bec2-42e4-b62b-b2de2bebe16c)
 ## 7. Uso de pgAdmin para Administración Visual 
 ### Paso 1: Acceso a pgAdmin y conexión al servidor PostgreSQL 
 ### 1. Abre pgAdmin y conéctate al servidor PostgreSQL usando las credenciales de postgres. 
