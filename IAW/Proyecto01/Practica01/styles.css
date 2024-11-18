@@ -1,0 +1,79 @@
+/* Configuración básica */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    animation: popUp 0.5s ease-in-out;
+}
+
+/* Título */
+.title {
+    font-size: 2rem;
+    color: #ff6f61;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px #ffd1c4;
+}
+
+/* Inputs y botones */
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 2px solid #ffd1c4;
+    border-radius: 8px;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+}
+
+/* Botón estilizado */
+button {
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e0584e;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}

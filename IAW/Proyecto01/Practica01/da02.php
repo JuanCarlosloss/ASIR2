@@ -1,31 +1,43 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Recoger los valores del formulario
     $num_dados = intval($_POST['num_dados']);
     $caras_dado = intval($_POST['caras_dado']);
     $puntaje_contrincante = intval($_POST['puntaje_contrincante']);
 
+    // Validar los valores de entrada
+    $max_puntaje_posible = $num_dados * $caras_dado;
 
-    if ($num_dados < 1 || $num_dados > 3 || !in_array($caras_dado, [4, 6, 8, 10, 12, 20]) || $puntaje_contrincante < 1) {
-        echo "Parámetros inválidos.";
+    if ($num_dados < 1 || $num_dados > 3 || 
+        !in_array($caras_dado, [4, 6, 8, 10, 12, 20]) || 
+        $puntaje_contrincante < 1 || 
+        $puntaje_contrincante > $max_puntaje_posible) {
+        echo "<p>Parámetros inválidos: 
+                <br>- Número de dados debe estar entre 1 y 3.
+                <br>- Caras de los dados debe ser 4, 6, 8, 10, 12 o 20.
+                <br>- Puntaje del contrincante debe ser menor o igual al máximo puntaje posible: $max_puntaje_posible.</p>";
         exit;
     }
 
-  
+    // Generar lanzamientos de dados
     $resultado_dados = [];
-    $suma_dados = 0;
     for ($i = 0; $i < $num_dados; $i++) {
-        $lanzamiento = rand(1, $caras_dado);
-        $resultado_dados[] = $lanzamiento;
-        $suma_dados += $lanzamiento;
+        $resultado_dados[] = rand(1, $caras_dado);
     }
 
-    
+    // Calcular la suma
+    $suma_dados = array_sum($resultado_dados);
+
+    // Determinar el resultado
     if ($suma_dados > $puntaje_contrincante) {
         $mensaje = "¡Ganaste!";
+        $resultado_clase = "win";
     } elseif ($suma_dados < $puntaje_contrincante) {
         $mensaje = "Perdiste.";
+        $resultado_clase = "lose";
     } else {
         $mensaje = "Empate.";
+        $resultado_clase = "draw";
     }
 }
 ?>
@@ -36,50 +48,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado del Juego</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        .result {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        .dice-results {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="styles_da02.css">
+    <script src="scripts_da02.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2>Resultado del Juego</h2>
-        <div class="dice-results">
-            <?php
-            echo "Lanzamientos de dados: " . implode(", ", $resultado_dados) . "<br>";
-            echo "Suma de los dados: " . $suma_dados . "<br>";
-            echo "Puntaje del contrincante: " . $puntaje_contrincante . "<br>";
-            ?>
+        <h1 class="title">Resultado del Juego</h1>
+        <div class="dice-animation">
+            <?php for ($i = 0; $i < $num_dados; $i++): ?>
+                <div class="dice" id="dice-<?php echo $i; ?>">
+                    <span>🎲</span>
+                </div>
+            <?php endfor; ?>
         </div>
-        <div class="result">
-            <?php echo $mensaje; ?>
+        <div class="result-container" id="result" style="display: none;">
+            <p>Lanzamientos de dados: <?php echo implode(", ", $resultado_dados); ?></p>
+            <p>Suma de los dados: <?php echo $suma_dados; ?></p>
+            <p>Puntaje del contrincante: <?php echo $puntaje_contrincante; ?></p>
+            <h2 class="<?php echo $resultado_clase; ?>"><?php echo $mensaje; ?></h2>
+            <p><strong>Puntaje máximo posible:</strong> <?php echo $max_puntaje_posible; ?></p>
         </div>
-        <br>
-        <a href="da01.php">Jugar de Nuevo</a>
+        <button onclick="window.location.href='da01.php'">Jugar de Nuevo</button>
     </div>
 </body>
 </html>
