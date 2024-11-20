@@ -165,8 +165,6 @@ DELETE FROM jinetes WHERE id = 1;
 ### 1. En Login/Group Roles de pgAdmin, crea los usuarios admin_equitacion, user_consultas y user_lectura.
 - ![image](https://github.com/user-attachments/assets/901e4746-13a3-4a0f-8604-7fcb8df8777c)
 - ![image](https://github.com/user-attachments/assets/632b48b9-49b4-40cc-9274-02953b0db365)
-- ![image](https://github.com/user-attachments/assets/1ab13f08-a4c2-4836-aece-26a19e378bfd)
-- ![image](https://github.com/user-attachments/assets/1e4e19ca-0f0f-4727-a4a9-b6dc01b92053)
 ### 2. Asigna los permisos correspondientes a cada usuario en las tablas jinetes y caballos usando la interfaz gráfica de pgAdmin. 
 
 ## 8. Características Avanzadas de PostgreSQL 
