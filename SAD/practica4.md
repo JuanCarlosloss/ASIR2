@@ -63,3 +63,55 @@ Iniciar el servicio de NUT.
 #### Cambia los parámetros en el archivo de configuración de NUT (ups.conf) para simular eventos como batería baja o fallo de alimentación:
 - ups.status = OB LB # Modo batería, baja carga
 - battery.charge = 10 # Simula un 10% de batería restante Reinicia NUT y verifica cómo se registran los eventos en Kibana. Estos eventos deberían aparecer como logs críticos, que pueden generar alertas si están configuradas.
+## Instalar Kibana.
+#### Para instalar kibana primero hay que instalar elasticsearch
+- ### Para instalar elasticsearch usamos este comando para descargarlos en los repositorios oficiales
+```bash
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-linux-x86_64.tar.gz
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-linux-x86_64.tar.gz.sha512
+shasum -a 512 -c elasticsearch-8.16.0-linux-x86_64.tar.gz.sha512 
+tar -xzf elasticsearch-8.16.0-linux-x86_64.tar.gz
+cd elasticsearch-8.16.0/ 
+```
+- ![image](https://github.com/user-attachments/assets/c06cc80e-40c6-43b9-836a-4a3acecf5e7a)
+- ![image](https://github.com/user-attachments/assets/bee88402-13bf-4b9b-85c4-081844781ee9)
+- #### Para iniciar elasticseach usamos este comando
+```bash
+./bin/elasticsearch
+```
+- al iniciar el programa nos dara una información importante a la hora de configurar kibana y poder acceder al dashboard
+- ![image](https://github.com/user-attachments/assets/cec874d1-ab09-4919-9cae-6169e20b3485)
+- no cerraremos la terminal ya que si la cerramos el servicio se parará 
+### Instalación Kibana
+```bash
+curl -O https://artifacts.elastic.co/downloads/kibana/kibana-8.16.0-linux-x86_64.tar.gz
+curl https://artifacts.elastic.co/downloads/kibana/kibana-8.16.0-linux-x86_64.tar.gz.sha512 | shasum -a 512 -c - 
+tar -xzf kibana-8.16.0-linux-x86_64.tar.gz
+cd kibana-8.16.0/ 
+```
+- ![image](https://github.com/user-attachments/assets/bb079d25-ceac-42fa-9b08-ffba0d8e5cb9)
+- ![image](https://github.com/user-attachments/assets/8976a843-1cce-4f40-852c-3c600a319d23)
+- #### para iniciar el kiabana hay que usar este comando
+```bash
+./bin/kibana
+```
+- ![image](https://github.com/user-attachments/assets/de7024fb-4215-4a40-af45-b6ea5ccead8c)
+- #### para iniciar el kinaba hay que abrir el navegador y poner este enlace http://localhost:5601/?code=406343 y despues hay que empezar a configurar
+- ![image](https://github.com/user-attachments/assets/75d3aa60-f5da-4af5-a4d1-1248ad2c9418)
+- hay que poner el token que te ofrecio el elasticsearch para poder configurar el kibana
+### Configurar NUT para enviar logs.
+### NUT registra eventos críticos, como batería baja o fallos de alimentación, en el archivo de log del sistema. Estos logs pueden enviarse a Kibana para su análisis. Asegúrate de que syslog esté configurado para enviar los logs al puerto adecuado de Kibana.
+
+### Crear filtros y dashboards en Kibana para analizar y visualizar los logs generados por NUT.
+
+### Configura Kibana para analizar y visualizar los logs generados por NUT, tales como:
+- Estado de la batería.
+- Tiempo de respaldo.
+- Eventos críticos como sobrecarga o fallo de alimentación.
+- Crea un dashboard que muestre visualmente los eventos más relevantes, como las caídas de energía o la activación del modo batería.
+- Simulación de eventos críticos.
+
+## Cambia los parámetros en el archivo de configuración de NUT (ups.conf) para simular eventos como batería baja o fallo de alimentación:
+- ups.status = OB LB # Modo batería, baja carga
+- battery.charge = 10 # Simula un 10% de batería restante
+- Reinicia NUT y verifica cómo se registran los eventos en Kibana. Estos eventos deberían aparecer como logs críticos, que pueden generar alertas si están configuradas.
