@@ -99,6 +99,13 @@ cd kibana-8.16.0/
 - #### para iniciar el kinaba hay que abrir el navegador y poner este enlace http://localhost:5601/?code=406343 y despues hay que empezar a configurar
 - ![image](https://github.com/user-attachments/assets/75d3aa60-f5da-4af5-a4d1-1248ad2c9418)
 - hay que poner el token que te ofrecio el elasticsearch para poder configurar el kibana
+- hay que poner un codigo de virificacion que se genera en bin/kibana-verification-code
+- ![image](https://github.com/user-attachments/assets/994445bb-b8ce-426b-95d4-e2f8faf06b99)
+- luego se veria una ventana que se ve como se configura el kibana
+- ![image](https://github.com/user-attachments/assets/b2da31fc-c667-4687-85ef-687f56abbbda)
+- despues de que se configure nos pedirá credenciales para poder acceder a kibana que se han generado la primera vez que se inició el elasticsearch
+- ![image](https://github.com/user-attachments/assets/66462b9c-417e-4449-8d3c-40c8b7381c7c)
+- con kibana no helogrado sacar ningun log del sistema ni metricas
 ### Configurar NUT para enviar logs.
 ### NUT registra eventos críticos, como batería baja o fallos de alimentación, en el archivo de log del sistema. Estos logs pueden enviarse a Kibana para su análisis. Asegúrate de que syslog esté configurado para enviar los logs al puerto adecuado de Kibana.
 
