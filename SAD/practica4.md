@@ -105,7 +105,7 @@ cd kibana-8.16.0/
 - ![image](https://github.com/user-attachments/assets/b2da31fc-c667-4687-85ef-687f56abbbda)
 - despues de que se configure nos pedirá credenciales para poder acceder a kibana que se han generado la primera vez que se inició el elasticsearch
 - ![image](https://github.com/user-attachments/assets/66462b9c-417e-4449-8d3c-40c8b7381c7c)
-- con kibana no helogrado sacar ningun log del sistema ni metricas
+- con kibana no he logrado sacar ningun log del sistema ni metricas
 ### Configurar NUT para enviar logs.
 ### NUT registra eventos críticos, como batería baja o fallos de alimentación, en el archivo de log del sistema. Estos logs pueden enviarse a Kibana para su análisis. Asegúrate de que syslog esté configurado para enviar los logs al puerto adecuado de Kibana.
 
