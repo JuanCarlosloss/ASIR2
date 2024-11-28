@@ -145,29 +145,85 @@ DELETE FROM jinetes WHERE id = 1;
 ## 7. Uso de pgAdmin para Administración Visual 
 ### Paso 1: Acceso a pgAdmin y conexión al servidor PostgreSQL 
 ### 1. Abre pgAdmin y conéctate al servidor PostgreSQL usando las credenciales de postgres. 
+- ![image](https://github.com/user-attachments/assets/fb15fff1-c848-483c-b0d5-13bca8938d98)
 ### 2. Verifica la conexión y accede a la lista de bases de datos. 
+- ![image](https://github.com/user-attachments/assets/5fd50370-868c-48bd-9a75-6cffbad8b919)
 ### Paso 2: Crear la base de datos EquitacionSuave 
 ### 1. En pgAdmin, crea la base de datos EquitacionSuave con postgres como propietario. 
+- ![image](https://github.com/user-attachments/assets/02c5e7be-d912-4125-8cff-6db9621c97e6)
 ### Paso 3: Crear las tablas jinetes y caballos 
 ### 1. En la sección Schemas > public > Tables de pgAdmin, crea la tabla jinetes con los campos mencionados en el paso 2. 
+- ![image](https://github.com/user-attachments/assets/cae66f75-eedb-4fdd-9b5d-c4b673e09663)
 ### 2. Crea también la tabla caballos con los campos requeridos y la referencia a la tabla jinetes. 
+- ![image](https://github.com/user-attachments/assets/50f0ef33-2666-40c7-b1e4-db70e7fe24cd)
 ### Paso 4: Insertar y consultar datos 
 ### 1. Utiliza la herramienta de consulta (Query Tool) de pgAdmin para insertar y consultar datos en ambas tablas. 
+- ![image](https://github.com/user-attachments/assets/65ff7241-7050-4fb3-a797-9b0f2a44fa81)
+- ![image](https://github.com/user-attachments/assets/d5105ac2-2edc-429a-8368-bbed85375a0a)
+- 
 ### Paso 5: Crear y administrar usuarios y roles en pgAdmin 
-### 1. En Login/Group Roles de pgAdmin, crea los usuarios admin_equitacion, user_consultas y user_lectura. 
+### 1. En Login/Group Roles de pgAdmin, crea los usuarios admin_equitacion, user_consultas y user_lectura.
+- ![image](https://github.com/user-attachments/assets/901e4746-13a3-4a0f-8604-7fcb8df8777c)
+- ![image](https://github.com/user-attachments/assets/632b48b9-49b4-40cc-9274-02953b0db365)
 ### 2. Asigna los permisos correspondientes a cada usuario en las tablas jinetes y caballos usando la interfaz gráfica de pgAdmin. 
-### 8. Características Avanzadas de PostgreSQL 
+
+## 8. Características Avanzadas de PostgreSQL 
 ### Ejercicio 1: Uso de JSON en la tabla jinetes 
 ### 1. Añade una columna llamada detalles_competencias de tipo JSON en la tabla jinetes. 
+```sql
+ALTER TABLE jinetes ADD COLUMN detalles_competencias JSON;
+```
+-![image](https://github.com/user-attachments/assets/d106d161-85a5-44e1-acb4-d82ae34dc31e)
 ### 2. Inserta un nuevo registro en la tabla jinetes y jinetes y utiliza la columna detalles_competencias para almacenar datos en formato JSON que incluyan las competencias y el número de victorias del jinete. 
+```sql
+INSERT INTO jinetes (nombre, apellido, categoria, experiencia_años, detalles_competencias)
+VALUES ('Carlos', 'Gómez', 'Avanzado', 10, '{"competencias": ["salto", "doma"], "victorias": 15}');
+```
+![image](https://github.com/user-attachments/assets/c0fe45e7-c077-4530-8736-4f169f752fcc)
 ### Ejercicio 2: Uso de arreglos (ARRAYS) para certificaciones 
 ### 1. Añade una columna certificaciones de tipo ARRAY en la tabla jinetes. 
+```sql
+ALTER TABLE jinetes ADD COLUMN certificaciones TEXT[];
+```
+- ![image](https://github.com/user-attachments/assets/02f8d2e5-0786-42d6-9e7b-272560064d98)
 ### 2. Actualiza uno de los registros en jinetes para almacenar múltiples certificaciones en la columna certificaciones. 
+```sql
+UPDATE jinetes SET certificaciones = ARRAY['Certificado A', 'Certificado B'] WHERE nombre = 'Carlos';
+```
+- ![image](https://github.com/user-attachments/assets/2c258d58-d28a-4060-a764-40caeed3df31)
 ## Ejercicio 3: Creación de Vistas Materializadas 
 ### 1. Crea una vista materializada llamada vista_jinetes_avanzados que contenga los registros de jinetes cuya categoría sea Avanzado. 
+```sql
+CREATE MATERIALIZED VIEW vista_jinetes_avanzados AS
+SELECT * FROM jinetes WHERE categoria = 'Avanzado';
+```
+- ![image](https://github.com/user-attachments/assets/8a6240a2-71b1-4dd9-bd86-b17c7dc2d484)
 ### 2. Realiza una operación para actualizar los datos de la vista materializada. 
+```sql
+REFRESH MATERIALIZED VIEW vista_jinetes_avanzados;
+```
+- ![image](https://github.com/user-attachments/assets/b124b1cb-50db-4096-b925-a03ce60d8fa7)
 ## Ejercicio 4: Herencia en Tablas para gestionar equipos de equitación 
 ### 1. Crea una tabla base llamada equipo_base con los campos id, nombre y tipo. 
+```sql
+CREATE TABLE equipo_base (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50),
+    tipo VARCHAR(50)
+);
+```
+- ![image](https://github.com/user-attachments/assets/98f47557-96c7-45ca-9525-c5e62b6700f5)
 ### 2. Crea una tabla heredada llamada equipo_de_salto que extienda equipo_base y añada un campo altura_maxima para especificar la altura máxima permitida del equipo. 
+```sql
+CREATE TABLE equipo_de_salto (
+    altura_maxima INT
+) INHERITS (equipo_base);
+```
+-![image](https://github.com/user-attachments/assets/e0dfc04a-a5b4-4d8a-8999-33167d3613d9)
 ### 3. Inserta un registro en la tabla equipo_de_salto. 
+```sql
+INSERT INTO equipo_de_salto (nombre, tipo, altura_maxima)
+VALUES ('Barrera Triple', 'Salto', 150);
+```
+- ![image](https://github.com/user-attachments/assets/df7c3078-7ada-44d4-89d2-31f00061f0b8)
 
