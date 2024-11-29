@@ -1,11 +1,11 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recoger los valores del formulario
+
     $num_dados = intval($_POST['num_dados']);
     $caras_dado = intval($_POST['caras_dado']);
     $puntaje_contrincante = intval($_POST['puntaje_contrincante']);
 
-    // Validar los valores de entrada
+    
     $max_puntaje_posible = $num_dados * $caras_dado;
 
     if ($num_dados < 1 || $num_dados > 3 || 
@@ -19,16 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    // Generar lanzamientos de dados
+    
     $resultado_dados = [];
     for ($i = 0; $i < $num_dados; $i++) {
         $resultado_dados[] = rand(1, $caras_dado);
     }
 
-    // Calcular la suma
+    
     $suma_dados = array_sum($resultado_dados);
 
-    // Determinar el resultado
+    
     if ($suma_dados > $puntaje_contrincante) {
         $mensaje = "¡Ganaste!";
         $resultado_clase = "win";
