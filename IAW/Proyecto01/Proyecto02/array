@@ -1,0 +1,10 @@
+array (
+  'ID' => 1,
+  0 => 1,
+  'SABOR' => 'Limón',
+  1 => 'Limón',
+  'FECHA_CADUCIDAD' => '2025-01-07',
+  2 => '2025-01-07',
+  'COLOR_ENVOLTORIO' => 'Rojo',
+  3 => 'Rojo',
+)
