@@ -3,11 +3,26 @@
 ```bash
 docker pull mongo
 ```
-- este se descargara y para verificar que se instaló usaremos este comando
+- Este se descargara y para verificar que se instaló usaremos este comando
 ```bash
 docker images
 ```
-- 
+- ![image](https://github.com/user-attachments/assets/cf8c04be-a566-4da4-848b-cef35a433a21)
+- Ahora hay que crear el contenedor de mongodb con el siguiente comando
+```bash
+docker run --name mongolodb -d mongo:latest\n
+```
+- Para verificar que se creo el contenedor usaremos este comando
+```bash
+docker ps
+```
+- ![image](https://github.com/user-attachments/assets/1e9dab20-2885-4c29-a983-b31d878cf8a0)
+- Y para ejecutar mongodb usaremos este comando
+```bash
+docker exec -it mongolodb mongosh
+```
+- ![image](https://github.com/user-attachments/assets/3cd41010-143d-4895-82b4-ca7d6a239fda)
+
 # 2. Explica para MongoDB los siguientes puntos:
 ### 1 Modelo de datos basado en documentos
 - MongoDB utiliza un modelo de datos basado en documentos en lugar de tablas y filas como en bases de datos relacionales. Los datos se almacenan como documentos JSON
