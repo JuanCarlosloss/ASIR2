@@ -67,25 +67,25 @@ Crea las colecciones anteriores
 Inserta los documentos anteriores en las colecciones correspondientes
 Realiza las siguientes consultas:
 
-- Consulta 0: Lista todas las colecciones
-![image](https://github.com/user-attachments/assets/e4e5f790-2dcf-4d89-a470-6688ac8c7f57)
-- Consulta 1: Listar todos los usuarios
-![image](https://github.com/user-attachments/assets/3c017657-0b6e-4469-bba6-653cee086789)
-- Consulta 2: Buscar pedidos de un usuario cuyo id sea 1
-![image](https://github.com/user-attachments/assets/0a58923f-28d0-4c02-bc7f-1d27b5368532)
-- Consulta 3: Listar productos con precio mayor a 30
-![image](https://github.com/user-attachments/assets/de8d3251-3787-403c-b9a2-52ecdd095525)
-- Consulta 4: Buscar pedidos que contengan un producto con id = 2
-![image](https://github.com/user-attachments/assets/4ed4cf69-2b6c-4577-8ca4-1cddd430b226)
-- Consulta 5: Obtener usuarios que hayan realizado pedidos con un total mayor a 40
-![image](https://github.com/user-attachments/assets/3e049f50-37a4-479f-9e8b-6cfd10a2e86c)
-- Consulta 6: Mostrar solo los nombres y correos de los usuarios
-![image](https://github.com/user-attachments/assets/d77a4c5a-d7d4-49d7-8687-2baf0ee4aed6)
-- Consulta 7: Contar cuántos productos tienen un precio menor o igual a 50
-![image](https://github.com/user-attachments/assets/7a70b8c8-3e0d-4f2f-a00d-cd44a92cc698)
-- Consulta 8: Encontrar usuarios que hayan pedido un producto llamado "Mouse"
-![image](https://github.com/user-attachments/assets/556e42ae-a698-41af-95ae-463fbe88c3c2)
-- Consulta 9: Agrupar los pedidos por usuario y calcular el total gastado por cada uno
-![image](https://github.com/user-attachments/assets/2962073f-b560-4cbf-a514-7e78228c3d6a)
-- Consulta 10: Listar productos únicos comprados en todos los pedidos
-![image](https://github.com/user-attachments/assets/e25680da-c6b1-440b-875f-c20bcf1b2274)
+### Consulta 0: Lista todas las colecciones
+- ![image](https://github.com/user-attachments/assets/e4e5f790-2dcf-4d89-a470-6688ac8c7f57)
+### Consulta 1: Listar todos los usuarios
+- ![image](https://github.com/user-attachments/assets/3c017657-0b6e-4469-bba6-653cee086789)
+### Consulta 2: Buscar pedidos de un usuario cuyo id sea 1
+- ![image](https://github.com/user-attachments/assets/0a58923f-28d0-4c02-bc7f-1d27b5368532)
+### Consulta 3: Listar productos con precio mayor a 30
+- ![image](https://github.com/user-attachments/assets/de8d3251-3787-403c-b9a2-52ecdd095525)
+### Consulta 4: Buscar pedidos que contengan un producto con id = 2
+- ![image](https://github.com/user-attachments/assets/4ed4cf69-2b6c-4577-8ca4-1cddd430b226)
+### Consulta 5: Obtener usuarios que hayan realizado pedidos con un total mayor a 40
+- ![image](https://github.com/user-attachments/assets/3e049f50-37a4-479f-9e8b-6cfd10a2e86c)
+### Consulta 6: Mostrar solo los nombres y correos de los usuarios
+- ![image](https://github.com/user-attachments/assets/d77a4c5a-d7d4-49d7-8687-2baf0ee4aed6)
+### Consulta 7: Contar cuántos productos tienen un precio menor o igual a 50
+- ![image](https://github.com/user-attachments/assets/7a70b8c8-3e0d-4f2f-a00d-cd44a92cc698)
+### Consulta 8: Encontrar usuarios que hayan pedido un producto llamado "Mouse"
+- ![image](https://github.com/user-attachments/assets/556e42ae-a698-41af-95ae-463fbe88c3c2)
+### Consulta 9: Agrupar los pedidos por usuario y calcular el total gastado por cada uno
+- ![image](https://github.com/user-attachments/assets/2962073f-b560-4cbf-a514-7e78228c3d6a)
+### Consulta 10: Listar productos únicos comprados en todos los pedidos
+- ![image](https://github.com/user-attachments/assets/e25680da-c6b1-440b-875f-c20bcf1b2274)
