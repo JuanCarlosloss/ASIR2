@@ -1,0 +1,101 @@
+/* General */
+body {
+    font-family: 'Press Start 2P', sans-serif; /* Fuente estilo pixel art */
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Encabezados */
+h1, h2 {
+    color: #FFD700; /* Amarillo Pac-Man */
+    text-shadow: 2px 2px #FF0000; /* Efecto retro */
+    margin: 20px 0;
+}
+
+/* Tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #000;
+    border: 2px solid #FFD700;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #FFD700;
+    text-align: center;
+    color: #fff;
+}
+
+th {
+    background-color: #FF0000;
+}
+
+tr:nth-child(even) {
+    background-color: #333;
+}
+
+/* Formularios */
+form {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #111;
+    border: 2px solid #FFD700;
+    width: 50%;
+    color: #fff;
+    border-radius: 10px;
+}
+
+label, input, select, button {
+    display: block;
+    margin: 10px auto;
+    font-size: 1em;
+}
+
+input, select, button {
+    padding: 10px;
+    border: 2px solid #FFD700;
+    background-color: #000;
+    color: #FFD700;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #FFD700;
+    color: #000;
+    cursor: pointer;
+}
+
+/* Links */
+a {
+    color: #00FFFF; /* Azul fantasmal */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF0000;
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    color: #FFD700;
+    font-size: 0.8em;
+}
+
+/* Pac-Man Icons */
+.pacman {
+    display: inline-block;
+    font-size: 2em;
+    color: #FFD700;
+}
+
+.ghost {
+    display: inline-block;
+    font-size: 2em;
+    color: #FF0000; /* Rojo fantasma */
+}
