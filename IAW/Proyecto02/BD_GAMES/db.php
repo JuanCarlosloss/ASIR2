@@ -11,8 +11,8 @@ set_exception_handler(function($exception) {
 
 $host = 'localhost';
 $dbname = 'BD_GAMES';
-$user = 'root'; // Cambia esto si tienes otro usuario
-$password = '232425'; // Cambia esto si tienes una contraseña
+$user = 'root';
+$password = '232425'; 
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
