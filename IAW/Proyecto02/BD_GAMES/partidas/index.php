@@ -1,11 +1,11 @@
 <?php
-require_once '../db.php'; // Incluye la conexión PDO como $pdo
+require_once '../db.php'; 
 
-// Manejar actualizaciones, eliminaciones y adiciones
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (isset($_POST['update'])) {
-            // Actualizar partida
+            
             $id = $_POST['id'];
             $nombre = $_POST['nombre'];
             $id_game = $_POST['id_game'];
@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':nombre' => $nombre, ':id_game' => $id_game, ':id_player1' => $id_player1, ':id_player2' => $id_player2, ':id' => $id]);
         } elseif (isset($_POST['delete'])) {
-            // Eliminar partida
+            
             $id = $_POST['id'];
             $sql = "DELETE FROM PARTIDAS WHERE ID = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':id' => $id]);
         } elseif (isset($_POST['add'])) {
-            // Agregar partida
+
             $nombre = $_POST['nombre'];
             $id_game = $_POST['id_game'];
             $id_player1 = $_POST['id_player1'];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Obtener lista de partidas
+
 try {
     $sql = "SELECT PARTIDAS.*, GAMES.NOMBRE AS GAME_NAME, P1.ALIAS AS PLAYER1_NAME, P2.ALIAS AS PLAYER2_NAME
             FROM PARTIDAS
@@ -48,7 +48,7 @@ try {
     die("Error al recuperar partidas: " . $e->getMessage());
 }
 
-// Obtener datos para selects
+
 try {
     $games = $pdo->query("SELECT * FROM GAMES")->fetchAll(PDO::FETCH_ASSOC);
     $players = $pdo->query("SELECT * FROM PLAYERS")->fetchAll(PDO::FETCH_ASSOC);
@@ -61,13 +61,13 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Partidas - Pac-Man Style</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>👾 Gestión de Partidas</h1>
 
-    <!-- Tabla de partidas -->
+ 
     <table>
         <tr>
             <th>ID</th>
@@ -85,14 +85,14 @@ try {
                 <td><?= htmlspecialchars($partida['PLAYER1_NAME']) ?></td>
                 <td><?= htmlspecialchars($partida['PLAYER2_NAME']) ?></td>
                 <td>
-                    <!-- Botón para editar -->
+                
                     <button onclick="editPartida(
                         <?= htmlspecialchars($partida['ID']) ?>, 
                         '<?= htmlspecialchars($partida['NOMBRE']) ?>', 
                         <?= htmlspecialchars($partida['ID_GAME']) ?>, 
                         <?= htmlspecialchars($partida['ID_PLAYER1']) ?>, 
                         <?= htmlspecialchars($partida['ID_PLAYER2']) ?>)">Editar</button>
-                    <!-- Formulario para eliminar -->
+          
                     <form method="POST" style="display:inline;">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($partida['ID']) ?>">
                         <button type="submit" name="delete" onclick="return confirm('¿Estás seguro de eliminar esta partida?')">Eliminar</button>
@@ -102,7 +102,6 @@ try {
         <?php endforeach; ?>
     </table>
 
-    <!-- Formulario de edición/agregar -->
     <div id="form-container">
         <h2 id="form-title">Añadir Partida</h2>
         <form method="POST">
@@ -139,7 +138,7 @@ try {
 
     <script>
         function editPartida(id, nombre, idGame, idPlayer1, idPlayer2) {
-            // Cambiar el formulario para modo edición
+          
             document.getElementById('form-title').textContent = 'Editar Partida';
             document.getElementById('partida-id').value = id;
             document.getElementById('partida-nombre').value = nombre;

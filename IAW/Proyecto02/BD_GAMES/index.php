@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-// Resumen de control
+
 $totalPlayers = $pdo->query("SELECT COUNT(*) FROM PLAYERS")->fetchColumn();
 $totalGames = $pdo->query("SELECT COUNT(*) FROM GAMES")->fetchColumn();
 $totalPartidas = $pdo->query("SELECT COUNT(*) FROM PARTIDAS")->fetchColumn();

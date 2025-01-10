@@ -1,18 +1,29 @@
 /* General */
 body {
-    font-family: 'Press Start 2P', sans-serif; /* Fuente estilo pixel art */
-    background-color: #000; /* Fondo negro */
-    color: #fff; /* Texto blanco */
+    font-family: 'Press Start 2P', sans-serif;
+    background-color: #000;
+    color: #fff;
     margin: 0;
     padding: 0;
     text-align: center;
+    line-height: 1.6;
 }
 
 /* Encabezados */
 h1, h2 {
-    color: #FFD700; /* Amarillo Pac-Man */
-    text-shadow: 2px 2px #FF0000; /* Efecto retro */
+    color: #FFD700;
+    text-shadow: 2px 2px #FF0000;
     margin: 20px 0;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FF0000;
+    }
+    to {
+        text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 80px #FF0000;
+    }
 }
 
 /* Tablas */
@@ -22,6 +33,7 @@ table {
     border-collapse: collapse;
     background-color: #000;
     border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 th, td {
@@ -29,25 +41,37 @@ th, td {
     border: 1px solid #FFD700;
     text-align: center;
     color: #fff;
+    transition: background-color 0.3s ease;
 }
 
 th {
     background-color: #FF0000;
+    font-size: 1.2em;
 }
 
 tr:nth-child(even) {
     background-color: #333;
 }
 
+tr:hover {
+    background-color: #444;
+}
+
 /* Formularios */
 form {
     margin: 20px auto;
-    padding: 10px;
+    padding: 20px;
     background-color: #111;
     border: 2px solid #FFD700;
     width: 50%;
     color: #fff;
     border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+form:hover {
+    transform: scale(1.05);
 }
 
 label, input, select, button {
@@ -62,40 +86,75 @@ input, select, button {
     background-color: #000;
     color: #FFD700;
     border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #00FFFF;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+button {
+    background-color: #FF0000;
+    color: #000;
+    cursor: pointer;
 }
 
 button:hover {
     background-color: #FFD700;
     color: #000;
-    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
 }
 
-/* Links */
+/* Enlaces */
 a {
-    color: #00FFFF; /* Azul fantasmal */
+    color: #00FFFF;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
     color: #FF0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
-/* Footer */
+/* Pie de página */
 footer {
-    margin-top: 20px;
+    margin-top: 40px;
     color: #FFD700;
     font-size: 0.8em;
+    animation: float 3s ease-in-out infinite;
 }
 
-/* Pac-Man Icons */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Elementos decorativos */
 .pacman {
     display: inline-block;
     font-size: 2em;
     color: #FFD700;
+    animation: eat 1s infinite;
+}
+
+@keyframes eat {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
 }
 
 .ghost {
     display: inline-block;
     font-size: 2em;
-    color: #FF0000; /* Rojo fantasma */
+    color: #FF0000; 
 }
