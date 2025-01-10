@@ -133,9 +133,9 @@ try {
             <button type="submit" name="add" id="form-submit">Guardar</button>
         </form>
     </div>
-
+    
     <a href="../index.php">Volver al Inicio</a>
-
+    <br><br>
     <script>
         function editPartida(id, nombre, idGame, idPlayer1, idPlayer2) {
           
