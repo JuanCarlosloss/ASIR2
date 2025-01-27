@@ -1,4 +1,4 @@
-## 0) Esquema de la Base de Datos Relacional de mandarinas
+## 0) Esquema de la Base de Datos Relacional de mandarinas inshallah
 - Mandarinas:
 ```sql
 id_mandarina: (INTEGER, PK, AUTOINCREMENT): Identificador único para cada mandarina.
