@@ -137,5 +137,68 @@ redis-cli -n 1
 
 - **Verificar si un elemento pertenece a un conjunto**  
   ```redis
-  SISMEMBER mi_conjunto valor
+  SISMEMBER mi_conjunto valor1
+
+- **Eliminar un elemento de un conjunto**  
+  ```redis
+  SREM mi_conjunto valor1
   ```
+
+- **Operaciones entre conjuntos (intersección, unión, diferencia)**  
+  ```redis
+  SINTER conjunto1 conjunto2
+  SUNION conjunto1 conjunto2
+  SDIFF conjunto1 conjunto2
+  ```
+
+## Hashes
+
+- **Agregar un campo a un hash**  
+  ```redis
+  HSET mi_hash campo1 valor1
+  ```
+
+- **Obtener el valor de un campo**  
+  ```redis
+  HGET mi_hash campo1
+  ```
+
+- **Obtener todos los campos y valores**  
+  ```redis
+  HGETALL mi_hash
+  ```
+
+- **Verificar si un campo existe**  
+  ```redis
+  HEXISTS mi_hash campo1
+  ```
+
+- **Eliminar un campo**  
+  ```redis
+  HDEL mi_hash campo1
+  ```
+
+## Administración de bases de datos
+
+- **Cambiar de base de datos**  
+  ```redis
+  SELECT número_base_datos
+  ```
+
+- **Ver claves en la base de datos actual**  
+  ```redis
+  KEYS *
+  ```
+
+- **Limpiar todas las claves de la base de datos actual**  
+  ```redis
+  FLUSHDB
+  ```
+
+- **Limpiar todas las claves de todas las bases de datos**  
+  ```redis
+  FLUSHALL
+  ```
+
+
+## Información y monitoreo
