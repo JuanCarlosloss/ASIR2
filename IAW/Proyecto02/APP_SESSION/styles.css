@@ -1,0 +1,133 @@
+/* styles.css */
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #87CEEB; /* Azul cielo */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Títulos principales */
+h1, h2 {
+    text-align: center;
+    font-family: 'Arial Black', sans-serif;
+    color: #D35400; /* Naranja de Mario */
+    margin-top: 20px;
+}
+
+/* Botones */
+button {
+    background-color: #28B463; /* Verde tubo */
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #1D8348;
+    transform: scale(1.1);
+}
+
+/* Formularios */
+form {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+input, select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #CCC;
+    border-radius: 5px;
+}
+
+/* Enlaces */
+a {
+    color: #2874A6; /* Azul brillante */
+    text-decoration: none;
+    display: inline-block; /* Necesario para centrar */
+    margin: 10px; /* Espaciado entre los enlaces */
+    text-align: center;
+}
+
+a:hover {
+    color: #154360;
+    font-weight: bold;
+}
+
+/* Tablas */
+table {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #F9E79F;
+    border: 2px solid #D4AC0D; /* Amarillo de bloques */
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #D4AC0D;
+}
+
+th {
+    background-color: #F5B041; /* Naranja claro */
+    color: #FFF;
+}
+
+/* Cabecera superior */
+header {
+    background-color: #B03A2E; /* Rojo Mario */
+    color: #FFF;
+    padding: 10px;
+    text-align: center;
+}
+
+header a {
+    color: #FFF;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #34495E; /* Gris oscuro */
+    color: #FFF;
+    margin-top: 20px;
+}
+
+/* Contenido principal */
+.container {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.container a {
+    margin: 10px; /* Espaciado entre los enlaces */
+}
+
+/* Centrar los enlaces en todo el documento */
+body {
+    text-align: center;
+}
+
+a {
+    display: inline-block; /* Hace que el enlace sea tratado como un bloque en línea */
+    margin: 10px; /* Espaciado entre los enlaces */
+}

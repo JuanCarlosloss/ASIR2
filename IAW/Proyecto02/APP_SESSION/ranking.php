@@ -24,6 +24,8 @@ $result = $db->query($query);
 <html>
 <head>
     <title>Ranking</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <h1>Ranking de los mejores jugadores</h1>

@@ -1,7 +1,8 @@
 <?php
-// Archivo: login.php
+session_start();
 include 'db.php';
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -9,29 +10,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->bind_result($id, $password_hash, $is_superuser);
+    $stmt->fetch();
 
-    if ($stmt->fetch() && password_verify($password, $password_hash)) {
-        session_start();
+    if (password_verify($password, $password_hash)) {
         $_SESSION['user_id'] = $id;
+        $_SESSION['username'] = $username;
         $_SESSION['is_superuser'] = $is_superuser;
         $_SESSION['last_activity'] = time();
 
         header("Location: dashboard.php");
+        exit;
     } else {
-        echo "Usuario o contraseña incorrectos.";
+        $error = "Usuario o contraseña incorrecta.";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
+    <h1>Iniciar Sesión</h1>
+    <?php if (isset($error)) echo "<p>$error</p>"; ?>
     <form method="POST" action="">
-        Usuario: <input type="text" name="username" required><br>
-        Contraseña: <input type="password" name="password" required><br>
-        <button type="submit">Iniciar sesión</button>
+        <input type="text" name="username" placeholder="Usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Iniciar Sesión</button>
     </form>
+    <a href="registro.php">Registrarse</a>
 </body>
 </html>

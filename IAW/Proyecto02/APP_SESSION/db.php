@@ -1,7 +1,14 @@
 <?php
-// Archivo: db.php
-$db = new mysqli("localhost", "root", "", "webapp_db");
+// Configuración de conexión a la base de datos
+$host = 'localhost';
+$dbname = 'appsession_db';
+$user = 'root';
+$pass = '232425';
+
+// Conectar a la base de datos
+$db = new mysqli($host, $user, $pass, $dbname);
+
 if ($db->connect_error) {
-    die("Conexión fallida: " . $db->connect_error);
+    die("Error de conexión: " . $db->connect_error);
 }
 ?>
