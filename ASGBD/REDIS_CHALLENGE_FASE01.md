@@ -7,6 +7,7 @@
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+- ![image](https://github.com/user-attachments/assets/68993e44-2e42-4688-8501-e62ef278e8dc)
 
 ### Instalar Redis
 ```bash
