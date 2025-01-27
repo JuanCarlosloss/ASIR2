@@ -71,3 +71,71 @@ redis-cli -n 1
   SET clave valor
   GET clave
   ```
+
+## Claves
+
+- **Eliminar una clave**  
+  ```redis
+  DEL clave
+  ```
+
+- **Verificar si una clave existe**  
+  ```redis
+  EXISTS clave
+  ```
+
+- **Establecer una clave con tiempo de expiración (en segundos)**  
+  ```redis
+  SETEX clave tiempo valor
+  ```
+
+- **Obtener el tiempo restante de una clave**  
+  ```redis
+  TTL clave
+  ```
+
+- **Renombrar una clave**  
+  ```redis
+  RENAME clave nueva_clave
+  ```
+
+## Listas
+
+- **Agregar elementos al principio y al final de una lista**  
+  ```redis
+  LPUSH mi_lista valor1
+  RPUSH mi_lista valor2
+  ```
+
+- **Obtener todos los elementos de una lista**  
+  ```redis
+  LRANGE mi_lista 0 -1
+  ```
+
+- **Obtener y eliminar el primer o último elemento de una lista**  
+  ```redis
+  LPOP mi_lista
+  RPOP mi_lista
+  ```
+
+- **Longitud de la lista**  
+  ```redis
+  LLEN mi_lista
+  ```
+
+## Conjuntos (Sets)
+
+- **Agregar elementos a un conjunto**  
+  ```redis
+  SADD mi_conjunto valor1 valor2
+  ```
+
+- **Obtener todos los elementos de un conjunto**  
+  ```redis
+  SMEMBERS mi_conjunto
+  ```
+
+- **Verificar si un elemento pertenece a un conjunto**  
+  ```redis
+  SISMEMBER mi_conjunto valor
+  ```
