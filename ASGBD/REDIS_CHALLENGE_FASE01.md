@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/afb39a8a-5a40-4e15-84a8-24d7a2c27227)
 # Instalación y Comandos Básicos de Redis
 
 ## Parte 1: Instalación de Redis
@@ -13,6 +13,7 @@ sudo apt update && sudo apt upgrade -y
 ```bash
 sudo apt install redis-server -y
 ```
+- ![image](https://github.com/user-attachments/assets/7c47e126-ea39-4031-ae72-e4c939bedf51)
 
 ### Verificar la instalación
 
@@ -30,6 +31,7 @@ sudo systemctl enable redis
 ```bash
 systemctl status redis
 ```
+- ![image](https://github.com/user-attachments/assets/996bc66a-75dc-45c9-aa66-ec74d371a2cd)
 
 ### Parar y reiniciar
 
@@ -49,17 +51,20 @@ sudo systemctl restart redis
 ```bash
 redis-cli
 ```
+- ![image](https://github.com/user-attachments/assets/9b9814bf-d839-4c0b-a302-648f3af8b897)
 
 #### Probar un comando básico
 ```bash
 PING
 ```
 _Debería responder con PONG._
+- ![image](https://github.com/user-attachments/assets/e0b77ea8-7af1-45eb-bcf9-d350a7393c65)
 
 #### Especificar una base de datos (por defecto usa la 0)
 ```bash
 redis-cli -n 1
 ```
+![image](https://github.com/user-attachments/assets/03d1afb6-776c-4754-a5c5-4ac9bc7e00d1)
 
 ## Parte 2: Comandos básicos en Redis
 
@@ -67,13 +72,13 @@ redis-cli -n 1
 
 #### Comandos básicos para claves
 
-- Establecer y obtener el valor de una clave
-  ```bash
+## Claves
+
+- **Establecer y obtener el valor de una clave**
+  ```redis
   SET clave valor
   GET clave
   ```
-
-## Claves
 
 - **Eliminar una clave**  
   ```redis
