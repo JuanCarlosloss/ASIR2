@@ -79,31 +79,38 @@ redis-cli -n 1
   SET clave valor
   GET clave
   ```
+- ![image](https://github.com/user-attachments/assets/e81bc20b-ddc7-4f87-b7aa-ffecf7bf4a32)
 
 - **Eliminar una clave**  
   ```redis
   DEL clave
   ```
+- ![image](https://github.com/user-attachments/assets/53886d14-487c-44a4-aa6d-22c0faa8dd71)
 
 - **Verificar si una clave existe**  
   ```redis
   EXISTS clave
   ```
+- ![image](https://github.com/user-attachments/assets/b30cd2de-8926-480b-8653-0bc034622a52)
 
 - **Establecer una clave con tiempo de expiración (en segundos)**  
   ```redis
   SETEX clave tiempo valor
   ```
+- ![image](https://github.com/user-attachments/assets/a481f615-ddea-4988-903b-bc1931862534)
 
 - **Obtener el tiempo restante de una clave**  
   ```redis
   TTL clave
   ```
+- ![image](https://github.com/user-attachments/assets/5de9f62d-ea26-456c-aa45-269d93c65b3e)
+
 
 - **Renombrar una clave**  
   ```redis
   RENAME clave nueva_clave
   ```
+- ![image](https://github.com/user-attachments/assets/04e580e4-bb21-43dc-9cc6-6f1577edfa7f)
 
 ## Listas
 
@@ -112,22 +119,26 @@ redis-cli -n 1
   LPUSH mi_lista valor1
   RPUSH mi_lista valor2
   ```
+- ![image](https://github.com/user-attachments/assets/c6943760-6d4f-45d6-bd1a-eaa5240b7087)
 
 - **Obtener todos los elementos de una lista**  
   ```redis
   LRANGE mi_lista 0 -1
   ```
+- ![image](https://github.com/user-attachments/assets/7a32c242-2fe2-4942-ae07-5a664da7352b)
 
 - **Obtener y eliminar el primer o último elemento de una lista**  
   ```redis
   LPOP mi_lista
   RPOP mi_lista
   ```
+- ![image](https://github.com/user-attachments/assets/5ba31e14-1a41-4bb6-a1b0-ff5171eb6495)
 
 - **Longitud de la lista**  
   ```redis
   LLEN mi_lista
   ```
+- ![image](https://github.com/user-attachments/assets/8f67c211-08ea-4ec7-8ab1-795b7ad25163)
 
 ## Conjuntos (Sets)
 
@@ -135,20 +146,25 @@ redis-cli -n 1
   ```redis
   SADD mi_conjunto valor1 valor2
   ```
+- ![image](https://github.com/user-attachments/assets/50e7a377-f11c-408b-abbb-e8b7a3ed8a34)
 
 - **Obtener todos los elementos de un conjunto**  
   ```redis
   SMEMBERS mi_conjunto
   ```
+- ![image](https://github.com/user-attachments/assets/016918cf-16ae-4361-94db-784bd89e673f)
 
 - **Verificar si un elemento pertenece a un conjunto**  
   ```redis
   SISMEMBER mi_conjunto valor1
+  ``` 
+- ![image](https://github.com/user-attachments/assets/cbe71105-c06e-4539-9ee0-1df99aa7a4e9)
 
 - **Eliminar un elemento de un conjunto**  
   ```redis
   SREM mi_conjunto valor1
   ```
+- ![image](https://github.com/user-attachments/assets/98e63d7d-3b04-4dd7-baee-b31d221add1b)
 
 - **Operaciones entre conjuntos (intersección, unión, diferencia)**  
   ```redis
@@ -156,6 +172,7 @@ redis-cli -n 1
   SUNION conjunto1 conjunto2
   SDIFF conjunto1 conjunto2
   ```
+- ![image](https://github.com/user-attachments/assets/6ebc0869-5d61-4b6d-9b77-38186cfc8f86)
 
 ## Hashes
 
@@ -163,26 +180,31 @@ redis-cli -n 1
   ```redis
   HSET mi_hash campo1 valor1
   ```
+- ![image](https://github.com/user-attachments/assets/1648cd2f-afff-4218-bc80-822733546bf8)
 
 - **Obtener el valor de un campo**  
   ```redis
   HGET mi_hash campo1
   ```
+- ![image](https://github.com/user-attachments/assets/f96d5ea8-9992-43df-9d1b-9a6774653328)
 
 - **Obtener todos los campos y valores**  
   ```redis
   HGETALL mi_hash
   ```
+- ![image](https://github.com/user-attachments/assets/f855f0b2-27da-40b7-a8ca-0540cc7a303c)
 
 - **Verificar si un campo existe**  
   ```redis
   HEXISTS mi_hash campo1
   ```
+- ![image](https://github.com/user-attachments/assets/2ac26478-5406-4903-ba11-b3404358b605)
 
 - **Eliminar un campo**  
   ```redis
   HDEL mi_hash campo1
   ```
+- ![image](https://github.com/user-attachments/assets/ab03e719-5f28-450d-b8c5-c1268a9d6041)
 
 ## Administración de bases de datos
 
@@ -190,21 +212,70 @@ redis-cli -n 1
   ```redis
   SELECT número_base_datos
   ```
+- ![image](https://github.com/user-attachments/assets/97e8f0cc-9827-4312-b8e5-1d41264f35e6)
 
 - **Ver claves en la base de datos actual**  
   ```redis
   KEYS *
   ```
+- ![image](https://github.com/user-attachments/assets/270c9a5f-d8a2-435b-ac8c-3d92a98634bc)
 
 - **Limpiar todas las claves de la base de datos actual**  
   ```redis
   FLUSHDB
   ```
-
-- **Limpiar todas las claves de todas las bases de datos**  
-  ```redis
-  FLUSHALL
-  ```
-
+- ![image](https://github.com/user-attachments/assets/8efd7ea6-c0f9-406b-8343-dd2d5ffb5d9a)
 
 ## Información y monitoreo
+
+**Obtener información del servidor**
+```redis
+INFO  
+```
+**Ver estadísticas en tiempo real**
+```redis
+MONITOR  
+```
+**Ver configuración actual**
+```redis
+CONFIG GET
+``` 
+
+**Cambiar configuración (temporalmente, mientras Redis esté en ejecución)**
+```redis
+CONFIG SET parametro valor
+```
+
+## Copias de seguridad y restauración
+### Forzar la creación de un snapshot
+```redis
+SAVE
+```  
+
+### Realizar una copia asincrónica
+```redis
+BGSAVE
+```  
+
+# Parte 3: Uso de un cliente visual
+
+## 1. Instalar RedisInsight (cliente visual oficial)
+- Descargar la última versión desde la web oficial:  
+  [RedisInsight - Página oficial](https://redis.com/redis-enterprise/redis-insight/)  
+
+### Instalar RedisInsight:
+```bash
+sudo dpkg -i <archivo_descargado>.deb
+```  
+
+### Abrir RedisInsight:
+```bash
+redisinsight
+```  
+
+Conectar al servidor Redis (por defecto, host: **127.0.0.1**, puerto: **6379**).  
+
+---
+
+## Explorar Redis desde RedisInsight
+Crear claves, insertar datos en listas o hashes, y observar las estructuras visualmente.
