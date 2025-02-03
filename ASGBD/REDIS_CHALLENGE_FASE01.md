@@ -66,6 +66,8 @@ redis-cli -n 1
 ```
 ![image](https://github.com/user-attachments/assets/03d1afb6-776c-4754-a5c5-4ac9bc7e00d1)
 
+---
+
 ## Parte 2: Comandos básicos en Redis
 
 ### Comprueba cada uno de los siguientes comandos en tu instalación
@@ -256,6 +258,7 @@ SAVE
 ```redis
 BGSAVE
 ```  
+---
 
 # Parte 3: Uso de un cliente visual
 
@@ -275,14 +278,36 @@ redisinsight
 
 Conectar al servidor Redis (por defecto, host: **127.0.0.1**, puerto: **6379**).  
 
+---
+
 # Parte 4: Otro ejercicio
 
 ## 1. Operaciones  
 Crear un sistema de gestión de inventario:  
 
-- Añade 5 productos (usando hashes con **HSET**).  
-- Incrementa el stock de uno de los productos (**HINCRBY**).  
+- Añade 5 productos (usando hashes con **HSET**).
+```redis
+HSET inventario "producto1" 10 "producto2" 15 "producto3" 5 "producto4" 20 "producto5" 8 "producto6" 0
+```
+- ![image](https://github.com/user-attachments/assets/51ef4e12-1133-428d-a66e-b5180b4050e9)
+- ![image](https://github.com/user-attachments/assets/7e4a7cdc-d7b3-4cc2-a76b-d419f28061fa)
+
+- Incrementa el stock de uno de los productos (**HINCRBY**).
+
+```redis
+HINCRBY inventario "producto3" 5
+```
+- ![image](https://github.com/user-attachments/assets/d53a1842-92d6-4aca-9b6f-72208e85344f)
+- ![image](https://github.com/user-attachments/assets/25f4b3e3-dd50-4b71-a15b-dbaef1bb14e9)
+  
 - Elimina un producto cuando el stock llegue a 0.  
+
+```redis
+HDEL inventario "producto6" = 0
+```
+- ![image](https://github.com/user-attachments/assets/86ee8f1b-3f9a-40ec-b738-461cce9cf3f7)
+- ![image](https://github.com/user-attachments/assets/120da7bc-27aa-499a-a46f-dc40ee67188c)
+
 
 ## 2. Simular un carrito de compras  
 Crear un carrito con la estructura de listas:  
@@ -290,6 +315,8 @@ Crear un carrito con la estructura de listas:
 LPUSH carrito "Producto1" "Producto2"  
 LRANGE carrito 0 -1  
 ```
+- ![image](https://github.com/user-attachments/assets/3e7a4d2f-3646-4436-9c39-132d8d21e54a)
+- ![image](https://github.com/user-attachments/assets/468fb30c-8122-44ea-8641-7cc17c033fdd)
 
 ## 3. Ranking de usuarios  
 Usar un conjunto ordenado para guardar puntuaciones:  
@@ -298,6 +325,8 @@ ZADD ranking 100 "usuario1" 200 "usuario2" 150 "usuario3"
 ZRANGE ranking 0 -1 WITHSCORES  
 ZREVRANK ranking "usuario2"  
 ```
+- ![image](https://github.com/user-attachments/assets/e99b972c-8818-4518-83b8-23f2f44e9be1)
+- ![image](https://github.com/user-attachments/assets/c805e85a-1a20-4b3f-acff-d50d534178b7)
 
 ## 4. Simulación de notificaciones  
 Usar listas para simular una cola de notificaciones:  
@@ -305,16 +334,35 @@ Usar listas para simular una cola de notificaciones:
 LPUSH notificaciones "Notificación 1" "Notificación 2"  
 RPOP notificaciones  
 ```
-
+- ![image](https://github.com/user-attachments/assets/c3722bd2-b126-4c4b-a622-9f2706df0ffb)
+- ![image](https://github.com/user-attachments/assets/d2dc4b7b-c5b4-4ec6-9710-dd4b6ff0f4a7)
 ---
 
 # Parte 5: Otro Ejercicio Más  
 
 ## Diseña un sistema de control de tareas con Redis. Debe permitir:  
 
-1. Añadir tareas con nombre y prioridad.  
-2. Consultar todas las tareas en orden de prioridad.  
-3. Marcar tareas como completadas (eliminarlas de la lista).  
+1. Añadir tareas con nombre y prioridad.
+
+```redis
+ZADD tareas 1 "Tarea: Pagar facturas"  
+ZADD tareas 2 "Tarea: Terminar informe"  
+ZADD tareas 3 "Tarea: Hacer ejercicio"  
+ZADD tareas 4 "Tarea: Leer 30 min"  
+ZADD tareas 5 "Tarea: Comprar víveres"
+```
+- ![image](https://github.com/user-attachments/assets/a305eafd-9e46-4a36-ae2c-96d4ab936aa1)
+- ![image](https://github.com/user-attachments/assets/213fdc07-1b59-48e4-bfba-9f2e8c8c7eaf)
+
+
+2. Consultar todas las tareas en orden de prioridad.
+
+- ![image](https://github.com/user-attachments/assets/6f7957ba-b543-44ba-b734-c88d7f5daa3c)
+
+3. Marcar tareas como completadas (eliminarlas de la lista).
+
+- ![image](https://github.com/user-attachments/assets/a31df4b0-4550-4c22-af01-37dde1f4d643)
+- ![image](https://github.com/user-attachments/assets/eb1b8ff0-2f58-4791-9633-49ef11fbc49f)
 
 ### 📝 Pistas  
 Usa listas (**LPUSH** y **LPOP**) o conjuntos ordenados (**ZADD** y **ZRANGE**).
