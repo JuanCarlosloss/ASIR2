@@ -268,8 +268,9 @@ BGSAVE
 
 ### Instalar RedisInsight:
 ```bash
-sudo dpkg -i <archivo_descargado>.deb
+sudo apt install ./<archivo_descargado>.deb
 ```  
+- ![image](https://github.com/user-attachments/assets/95b25c1e-8e0c-4cc9-a6ba-e2214031a140)
 
 ### Abrir RedisInsight:
 ```bash
@@ -277,6 +278,9 @@ redisinsight
 ```  
 
 Conectar al servidor Redis (por defecto, host: **127.0.0.1**, puerto: **6379**).  
+
+- ![image](https://github.com/user-attachments/assets/8985d18e-7367-43a0-9113-7e4ce752f423)
+
 
 ---
 
