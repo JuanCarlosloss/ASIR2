@@ -275,6 +275,51 @@ redisinsight
 
 Conectar al servidor Redis (por defecto, host: **127.0.0.1**, puerto: **6379**).  
 
+# Parte 4: Otro ejercicio
+
+## 1. Operaciones  
+Crear un sistema de gestión de inventario:  
+
+- Añade 5 productos (usando hashes con **HSET**).  
+- Incrementa el stock de uno de los productos (**HINCRBY**).  
+- Elimina un producto cuando el stock llegue a 0.  
+
+## 2. Simular un carrito de compras  
+Crear un carrito con la estructura de listas:  
+```redis
+LPUSH carrito "Producto1" "Producto2"  
+LRANGE carrito 0 -1  
+```
+
+## 3. Ranking de usuarios  
+Usar un conjunto ordenado para guardar puntuaciones:  
+```redis
+ZADD ranking 100 "usuario1" 200 "usuario2" 150 "usuario3"  
+ZRANGE ranking 0 -1 WITHSCORES  
+ZREVRANK ranking "usuario2"  
+```
+
+## 4. Simulación de notificaciones  
+Usar listas para simular una cola de notificaciones:  
+```redis
+LPUSH notificaciones "Notificación 1" "Notificación 2"  
+RPOP notificaciones  
+```
+
+---
+
+# Parte 5: Otro Ejercicio Más  
+
+## Diseña un sistema de control de tareas con Redis. Debe permitir:  
+
+1. Añadir tareas con nombre y prioridad.  
+2. Consultar todas las tareas en orden de prioridad.  
+3. Marcar tareas como completadas (eliminarlas de la lista).  
+
+### 📝 Pistas  
+Usa listas (**LPUSH** y **LPOP**) o conjuntos ordenados (**ZADD** y **ZRANGE**).
+
+
 ---
 
 ## Explorar Redis desde RedisInsight
