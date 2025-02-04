@@ -33,7 +33,7 @@ $result = $db->query($query);
         <thead>
             <tr>
                 <th>Usuario</th>
-                <th>Puntos</th>
+                <th>Intentos</th>
                 <th>Fecha</th>
             </tr>
         </thead>
