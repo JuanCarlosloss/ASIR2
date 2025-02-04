@@ -234,30 +234,39 @@ redis-cli -n 1
 ```redis
 INFO  
 ```
+- ![image](https://github.com/user-attachments/assets/e0005e1c-1b36-4fdf-9a9f-da8126da502b)
+
 **Ver estadísticas en tiempo real**
 ```redis
 MONITOR  
 ```
+- ![image](https://github.com/user-attachments/assets/e517e138-f4af-42db-bc18-be3352e49719)
+
 **Ver configuración actual**
 ```redis
 CONFIG GET
 ``` 
+- ![image](https://github.com/user-attachments/assets/a2c9b70b-39be-482a-895a-46e77164c44a)
 
 **Cambiar configuración (temporalmente, mientras Redis esté en ejecución)**
 ```redis
 CONFIG SET parametro valor
 ```
+- ![image](https://github.com/user-attachments/assets/416ed6e1-b574-4160-a17a-cd663e9a75b9)
 
 ## Copias de seguridad y restauración
 ### Forzar la creación de un snapshot
 ```redis
 SAVE
 ```  
+- ![image](https://github.com/user-attachments/assets/08da1086-728a-4857-aaff-c73d532a0657)
 
 ### Realizar una copia asincrónica
 ```redis
 BGSAVE
-```  
+```
+- ![image](https://github.com/user-attachments/assets/8a3bc50f-f209-4287-821a-5b625cc8a2fc)
+
 ---
 
 # Parte 3: Uso de un cliente visual
