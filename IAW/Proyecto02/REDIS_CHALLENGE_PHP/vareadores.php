@@ -43,7 +43,7 @@ $conn->close();
 </head>
 <body class="container mt-5">
     <h2>Vareadores</h2>
-    
+
     <a href="index.php" class="btn btn-secondary mb-3">Volver</a>
 
     <form method="post" class="mb-4">
@@ -56,12 +56,20 @@ $conn->close();
 
     <h3>Lista de Vareadores</h3>
     <table class="table table-striped">
-        <thead><tr><th>ID</th><th>Nombre</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead>
         <tbody>
             <?php foreach ($vareadores as $vareador) : ?>
                 <tr>
                     <td><?= $vareador['id'] ?></td>
                     <td><?= $vareador['nombre'] ?></td>
+                    <td>
+                        <form method="post" class="d-inline">
+                            <input type="hidden" name="editar_id" value="<?= $vareador['id'] ?>">
+                            <input type="text" name="nuevo_nombre" placeholder="Nuevo nombre" required>
+                            <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                        </form>
+                        <a href="?eliminar=<?= $vareador['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este Vareador?');">Eliminar</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -5,17 +5,35 @@ $buscar = "";
 $resultado = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $buscar = $_POST["buscar"];
-    
-    // Buscar Vareador y sus Olivos
-    $sql = "SELECT v.nombre AS vareador, o.ubicacion AS olivo 
-            FROM vareadores_olivos 
-            JOIN vareadores v ON v.id = vareadores_olivos.vareador_id 
-            JOIN olivos o ON o.id = vareadores_olivos.olivo_id 
-            WHERE v.nombre LIKE '%$buscar%' OR o.ubicacion LIKE '%$buscar%'";
-    
-    $query_result = $conn->query($sql);
-    $resultado = $query_result->fetch_all(MYSQLI_ASSOC);
+    $buscar = trim($_POST["buscar"]);
+    $cache_key = "buscar:" . md5($buscar); // Generamos una clave única para la búsqueda
+
+    // Intentar obtener resultados desde Redis
+    $resultado = getCache($cache_key);
+
+    if (!$resultado) {
+        error_log("🚨 No encontrado en Redis, consultando MySQL...");
+
+        // Si no está en caché, buscar en MySQL
+        $sql = "SELECT v.nombre AS vareador, o.ubicacion AS olivo 
+                FROM vareadores_olivos 
+                JOIN vareadores v ON v.id = vareadores_olivos.vareador_id 
+                JOIN olivos o ON o.id = vareadores_olivos.olivo_id 
+                WHERE v.nombre LIKE '%$buscar%' OR o.ubicacion LIKE '%$buscar%'";
+
+        $query_result = $conn->query($sql);
+        $resultado = $query_result->fetch_all(MYSQLI_ASSOC);
+
+        // Guardar en Redis con TTL de 60 segundos si hay resultados
+        if (!empty($resultado)) {
+            setCache($cache_key, $resultado, 60);
+            error_log("✅ Resultados guardados en Redis para clave: $cache_key");
+        } else {
+            error_log("⚠️ No se encontraron resultados en MySQL");
+        }
+    } else {
+        error_log("✅ Resultados obtenidos desde Redis para clave: $cache_key");
+    }
 }
 
 $conn->close();

@@ -1,12 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
-
-<?php
 require 'db.php';
 
-// Agregar Olivo
+// Agregar un nuevo Olivo
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["ubicacion"])) {
     $ubicacion = $_POST["ubicacion"];
     $conn->query("INSERT INTO olivos (ubicacion) VALUES ('$ubicacion')");
@@ -48,7 +43,7 @@ $conn->close();
 </head>
 <body class="container mt-5">
     <h2>Olivos</h2>
-    
+
     <a href="index.php" class="btn btn-secondary mb-3">Volver</a>
 
     <form method="post" class="mb-4">
@@ -61,12 +56,20 @@ $conn->close();
 
     <h3>Lista de Olivos</h3>
     <table class="table table-striped">
-        <thead><tr><th>ID</th><th>Ubicación</th></tr></thead>
+        <thead><tr><th>ID</th><th>Ubicación</th><th>Acciones</th></tr></thead>
         <tbody>
             <?php foreach ($olivos as $olivo) : ?>
                 <tr>
                     <td><?= $olivo['id'] ?></td>
                     <td><?= $olivo['ubicacion'] ?></td>
+                    <td>
+                        <form method="post" class="d-inline">
+                            <input type="hidden" name="editar_id" value="<?= $olivo['id'] ?>">
+                            <input type="text" name="nueva_ubicacion" placeholder="Nueva ubicación" required>
+                            <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                        </form>
+                        <a href="?eliminar=<?= $olivo['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este Olivo?');">Eliminar</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
