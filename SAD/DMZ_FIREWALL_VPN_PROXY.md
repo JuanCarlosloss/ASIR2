@@ -101,7 +101,7 @@
   - Puerto: 1194  
   - Destino: 192.168.1.10  
 
-- **Permitir tráfico desde DMZ hacia Internet:**  (Esto se hace en la FW2)
+- **Permitir tráfico desde DMZ hacia Internet:** 
   - Interfaz: DMZ  
   - Proto: TCP/UDP  
   - Puerto: Any  
@@ -118,6 +118,11 @@
 ## NAT en FW1  
 - **Outbound NAT:** Habilita NAT automático o manual.  
 - **Regla NAT:** Traduce 192.168.1.0/24 → WAN (masquerade).  
+
+- ![image](https://github.com/user-attachments/assets/2f93e76c-9415-48f3-aa19-bef3fa912416)
+- ![image](https://github.com/user-attachments/assets/46f0f23d-c392-4cb3-b81f-dc77e85b8d85)
+
+
 
 ## 1.2. Configuración del Firewall Interno (FW2)
 
@@ -137,9 +142,6 @@
   - Destino: 192.168.0.10  
   - Puerto: 3128  
 
-- ![image](https://github.com/user-attachments/assets/1579c909-58b0-4437-a64a-e57f35193198)
-
-
 - **Permitir tráfico de la VPN al Proxy:**  
   - Interfaz: DMZ  
   - Proto: TCP  
@@ -153,8 +155,11 @@
   - Destino: 192.168.0.0/24  
   - Acción: Block  
   - Excepción: 192.168.1.10 -> 192.168.0.10
- 
-- ![image](https://github.com/user-attachments/assets/91cc6c1a-5fd7-4810-a40d-fa48f0095657)
+    
+- ![image](https://github.com/user-attachments/assets/e663918a-b199-4d2e-a41f-3a37b02668ac)
+- ![image](https://github.com/user-attachments/assets/c49760de-2f82-4c51-888f-8589f0faae1a)
+
+
 
 
 ## NAT en FW2  
@@ -407,18 +412,27 @@ ping 192.168.0.100
 ```
 Resultado esperado: El tráfico debe estar bloqueado por el Firewall1 (DMZ → LAN).
 
+- ![image](https://github.com/user-attachments/assets/e6b4c30b-a6bb-47a9-b23b-46ebb2f7dbb7)
+
+
 ### Intenta conectarte por SSH al Proxy (192.168.0.10) desde la DMZ:
 ```bash
 ssh usuario@192.168.0.10
 ```
 Resultado esperado: El acceso debe estar permitido únicamente si se configuró en el Firewall1.
 
+- ![image](https://github.com/user-attachments/assets/75f29449-984f-4258-9129-625d5f9e402f)
+
+ 
 ### Verificación del tráfico Proxy
 Desde el cliente interno (192.168.0.100), se accede a Internet a través del Proxy.
 En el servidor Proxy, verifica los logs para confirmar que todo el tráfico pasa por Squid:
 ```bash
 sudo tail -f /var/log/squid/access.log
 ```
+
+- ![image](https://github.com/user-attachments/assets/bc6b6f8e-df4e-4017-ac52-5adb9756abd1)
+
 
 ### Más Pruebas:
 #### Traceroute completo:
@@ -427,10 +441,16 @@ traceroute 8.8.8.8
 ```
 Resultado esperado: El tráfico debe pasar por el Proxy (192.168.0.10).
 
+- ![image](https://github.com/user-attachments/assets/b8a1671a-1568-44fd-b340-8c3f988d5757)
+
 #### Prueba de DNS:
 ```bash
 nslookup www.google.com
 ```
 #### Resultado esperado: La resolución debe ser exitosa.
+
+- ![image](https://github.com/user-attachments/assets/fa446c52-4954-4cfe-bdc8-c1e356e9f245)
+
+
 
 
