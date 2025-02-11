@@ -1,13 +1,14 @@
 # Esquema de la Red
 
-## Dispositivo | Interfaz | Red / IP  
-**FW1 (pfSense Externo)** | WAN | 192.168.100.0/24 (probando en un entorno NAT).  
-**FW1 (pfSense Externo)** | DMZ | 192.168.1.1/24  
-**FW2 (pfSense Interno)** | DMZ | 192.168.1.2/24  
-**FW2 (pfSense Interno)** | LAN | 192.168.0.1/24  
-**Servidor VPN** | DMZ | 192.168.1.10/24  
-**Servidor Proxy** | LAN | 192.168.0.10/24  
-**Cliente Interno** | LAN | 192.168.0.100/24  
+| Dispositivo | Interfaz | Red / IP |
+|-------------|----------|-----------|
+| **FW1 (pfSense Externo)** | WAN | 192.168.100.0/24 (probando en un entorno NAT) |
+| | DMZ | 192.168.1.1/24 |
+| **FW2 (pfSense Interno)** | DMZ | 192.168.1.2/24 |
+| | LAN | 192.168.0.1/24 |
+| **Servidor VPN** | DMZ | 192.168.1.10/24 |
+| **Servidor Proxy** | LAN | 192.168.0.10/24 |
+| **Cliente Interno** | LAN | 192.168.0.100/24 |
 
 # Configuración de VirtualBox para cada máquina
 
