@@ -101,7 +101,7 @@
   - Puerto: 1194  
   - Destino: 192.168.1.10  
 
-- **Permitir tráfico desde DMZ hacia Internet:**  
+- **Permitir tráfico desde DMZ hacia Internet:**  (Esto se hace en la FW2)
   - Interfaz: DMZ  
   - Proto: TCP/UDP  
   - Puerto: Any  
@@ -112,7 +112,8 @@
   - Proto: Any  
   - Destino: 192.168.0.0/24  
   - Acción: Block  
-  - Excepción: 192.168.1.10 -> 192.168.0.10  
+  - Excepción: 192.168.1.10 -> 192.168.0.10
+  
 
 ## NAT en FW1  
 - **Outbound NAT:** Habilita NAT automático o manual.  
@@ -136,6 +137,9 @@
   - Destino: 192.168.0.10  
   - Puerto: 3128  
 
+- ![image](https://github.com/user-attachments/assets/1579c909-58b0-4437-a64a-e57f35193198)
+
+
 - **Permitir tráfico de la VPN al Proxy:**  
   - Interfaz: DMZ  
   - Proto: TCP  
@@ -148,7 +152,10 @@
   - Proto: Any  
   - Destino: 192.168.0.0/24  
   - Acción: Block  
-  - Excepción: 192.168.1.10 -> 192.168.0.10  
+  - Excepción: 192.168.1.10 -> 192.168.0.10
+ 
+- ![image](https://github.com/user-attachments/assets/91cc6c1a-5fd7-4810-a40d-fa48f0095657)
+
 
 ## NAT en FW2  
 - **Outbound NAT:** Automático.  
