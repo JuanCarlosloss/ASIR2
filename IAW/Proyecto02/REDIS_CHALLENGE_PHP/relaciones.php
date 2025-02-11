@@ -1,32 +1,20 @@
 <?php
 require 'db.php';
 
-// Agregar una relación
+// Agregar una relación y limpiar caché
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vareador_id = $_POST["vareador_id"];
     $olivo_id = $_POST["olivo_id"];
 
     $sql = "INSERT INTO vareadores_olivos (vareador_id, olivo_id) VALUES ('$vareador_id', '$olivo_id')";
     $conn->query($sql);
-
-    // Eliminar la caché de relaciones para actualizarla
     $redis->del("relaciones");
 }
-
-// Obtener lista de Vareadores
-$vareadores_result = $conn->query("SELECT * FROM vareadores");
-$vareadores = $vareadores_result->fetch_all(MYSQLI_ASSOC);
-
-// Obtener lista de Olivos
-$olivos_result = $conn->query("SELECT * FROM olivos");
-$olivos = $olivos_result->fetch_all(MYSQLI_ASSOC);
 
 // Obtener relaciones desde Redis o MySQL
 $relaciones = getCache("relaciones");
 
 if (!$relaciones) {
-    error_log("🚨 Relaciones no encontradas en Redis. Consultando MySQL...");
-
     $query = "SELECT v.nombre AS vareador, o.ubicacion AS olivo 
               FROM vareadores_olivos 
               JOIN vareadores v ON v.id = vareadores_olivos.vareador_id 
@@ -34,18 +22,12 @@ if (!$relaciones) {
 
     $relaciones_result = $conn->query($query);
     $relaciones = $relaciones_result->fetch_all(MYSQLI_ASSOC);
-
-    // Guardar en Redis con TTL de 60 segundos
-    if (!empty($relaciones)) {
-        setCache("relaciones", $relaciones, 60);
-        error_log("✅ Relaciones guardadas en Redis.");
-    } else {
-        error_log("⚠️ No se encontraron relaciones en MySQL.");
-    }
+    setCache("relaciones", $relaciones);
 }
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

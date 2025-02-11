@@ -1,37 +1,38 @@
 <?php
 require 'db.php';
 
-// Agregar un nuevo Olivo
+// Agregar un Olivo
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["ubicacion"])) {
     $ubicacion = $_POST["ubicacion"];
     $conn->query("INSERT INTO olivos (ubicacion) VALUES ('$ubicacion')");
-    $redis->del("olivos"); // Limpiar caché
+    $redis->del("olivos");
 }
 
-// Modificar Olivo
+// Modificar un Olivo
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_id"])) {
     $id = $_POST["editar_id"];
     $nueva_ubicacion = $_POST["nueva_ubicacion"];
     $conn->query("UPDATE olivos SET ubicacion='$nueva_ubicacion' WHERE id=$id");
-    $redis->del("olivos"); // Limpiar caché
+    $redis->del("olivos");
 }
 
-// Eliminar Olivo
+// Eliminar un Olivo
 if (isset($_GET["eliminar"])) {
     $id = $_GET["eliminar"];
     $conn->query("DELETE FROM olivos WHERE id=$id");
-    $redis->del("olivos"); // Limpiar caché
+    $redis->del("olivos");
 }
 
-// Obtener lista de Olivos desde Redis o MySQL
+// Obtener la lista desde Redis o MySQL
 $olivos = getCache("olivos");
 if (!$olivos) {
     $result = $conn->query("SELECT * FROM olivos");
     $olivos = $result->fetch_all(MYSQLI_ASSOC);
-    setCache("olivos", $olivos, 60); // TTL de 60 segundos
+    setCache("olivos", $olivos);
 }
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

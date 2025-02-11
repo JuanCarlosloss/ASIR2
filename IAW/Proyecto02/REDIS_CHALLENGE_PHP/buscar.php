@@ -6,15 +6,14 @@ $resultado = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $buscar = trim($_POST["buscar"]);
-    $cache_key = "buscar:" . md5($buscar); // Generamos una clave única para la búsqueda
+    $cache_key = "buscar:" . md5($buscar);
 
-    // Intentar obtener resultados desde Redis
+    // Intentar obtener desde Redis
     $resultado = getCache($cache_key);
 
     if (!$resultado) {
         error_log("🚨 No encontrado en Redis, consultando MySQL...");
 
-        // Si no está en caché, buscar en MySQL
         $sql = "SELECT v.nombre AS vareador, o.ubicacion AS olivo 
                 FROM vareadores_olivos 
                 JOIN vareadores v ON v.id = vareadores_olivos.vareador_id 
@@ -24,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query_result = $conn->query($sql);
         $resultado = $query_result->fetch_all(MYSQLI_ASSOC);
 
-        // Guardar en Redis con TTL de 60 segundos si hay resultados
+        // Guardar en Redis con TTL correcto
         if (!empty($resultado)) {
-            setCache($cache_key, $resultado, 60);
+            setCache($cache_key, $resultado);
             error_log("✅ Resultados guardados en Redis para clave: $cache_key");
         } else {
             error_log("⚠️ No se encontraron resultados en MySQL");
@@ -38,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

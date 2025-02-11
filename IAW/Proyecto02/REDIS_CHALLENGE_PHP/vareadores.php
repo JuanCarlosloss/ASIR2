@@ -1,37 +1,38 @@
 <?php
 require 'db.php';
 
-// Agregar un nuevo Vareador
+// Agregar un Vareador
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nombre"])) {
     $nombre = $_POST["nombre"];
     $conn->query("INSERT INTO vareadores (nombre) VALUES ('$nombre')");
-    $redis->del("vareadores"); // Eliminar caché para actualizar datos
+    $redis->del("vareadores");
 }
 
-// Modificar Vareador
+// Modificar un Vareador
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_id"])) {
     $id = $_POST["editar_id"];
     $nuevo_nombre = $_POST["nuevo_nombre"];
     $conn->query("UPDATE vareadores SET nombre='$nuevo_nombre' WHERE id=$id");
-    $redis->del("vareadores"); // Limpiar caché
+    $redis->del("vareadores");
 }
 
-// Eliminar Vareador
+// Eliminar un Vareador
 if (isset($_GET["eliminar"])) {
     $id = $_GET["eliminar"];
     $conn->query("DELETE FROM vareadores WHERE id=$id");
-    $redis->del("vareadores"); // Limpiar caché
+    $redis->del("vareadores");
 }
 
-// Obtener lista de Vareadores desde Redis o MySQL
+// Obtener la lista desde Redis o MySQL
 $vareadores = getCache("vareadores");
 if (!$vareadores) {
     $result = $conn->query("SELECT * FROM vareadores");
     $vareadores = $result->fetch_all(MYSQLI_ASSOC);
-    setCache("vareadores", $vareadores, 60); // TTL de 60 segundos
+    setCache("vareadores", $vareadores);
 }
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
