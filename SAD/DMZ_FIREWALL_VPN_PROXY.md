@@ -19,7 +19,8 @@
 - RAM: 2 GB  
 - CPU: 1 vCPU  
 - Disco duro: 8 GB (Dinámicamente asignado)  
-- Sistema operativo: pfSense ISO, FreeBSD 64-bit (descargar ISO de la última versión del sitio oficial).  
+- Sistema operativo: pfSense ISO, FreeBSD 64-bit (descargar ISO de la última versión del sitio oficial).
+- ![image](https://github.com/user-attachments/assets/25dbab62-dd60-43f0-9e40-c7323448e4a8)
 
 ### Configuración de Red  
 - **Adaptador 1 (WAN):**  
@@ -27,7 +28,8 @@
   - Propósito: Conexión a Internet.  
 - **Adaptador 2 (DMZ):**  
   - Tipo: Red Interna  
-  - Nombre de la red interna: DMZ  
+  - Nombre de la red interna: DMZ
+- ![image](https://github.com/user-attachments/assets/abbaca18-3acf-4790-abd6-06757b3787fd)
 
 ## 2. Firewall Interno (FW2 - pfSense)
 
@@ -36,11 +38,15 @@
 - RAM: 2 GB  
 - CPU: 1 vCPU  
 - Disco duro: 8 GB (Dinámicamente asignado)  
-- Sistema operativo: pfSense ISO, FreeBSD 64-bit (descargar ISO de la última versión del sitio oficial).  
+- Sistema operativo: pfSense ISO, FreeBSD 64-bit (descargar ISO de la última versión del sitio oficial).
+-  ![image](https://github.com/user-attachments/assets/a4894b0a-af21-45dc-9f6f-55aa77c3ffe5)
+
 
 ### Configuración de Red  
 - **Adaptador 1 (DMZ):** Red Interna (Nombre: DMZ)  
 - **Adaptador 2 (LAN):** Red Interna (Nombre: LAN)  
+- ![image](https://github.com/user-attachments/assets/716afbd5-6f74-4de3-9fa5-eda1b5f0604e)
+
 
 ## 3. Servidor VPN (Ubuntu Server o similar)
 
@@ -50,6 +56,8 @@
 - CPU: 1 vCPU  
 - Disco duro: 10 GB (Dinámicamente asignado)  
 - Sistema operativo: Ubuntu Server 22.04 ISO o similar.  
+- ![image](https://github.com/user-attachments/assets/925f74bf-8206-4f65-8adc-87287ed0fe14)
+
 
 ### Configuración de Red  
 - **Adaptador 1 (DMZ):** Red Interna (Nombre: DMZ)  
@@ -62,6 +70,8 @@
 - CPU: 1 vCPU  
 - Disco duro: 10 GB (Dinámicamente asignado)  
 - Sistema operativo: Ubuntu Server 22.04 ISO. O similar.  
+- ![image](https://github.com/user-attachments/assets/29b9d058-1a98-44ad-abbe-843519e7aaca)
+
 
 ### Configuración de Red  
 - **Adaptador 1 (LAN):** Red Interna (Nombre: LAN)  
@@ -74,9 +84,10 @@
 - CPU: 1 vCPU  
 - Disco duro: 8 GB (Dinámicamente asignado)  
 - Sistema operativo: Windows 7/10/11.  
-
+- 
 ### Configuración de Red  
 - **Adaptador 1 (LAN):** Red Interna (Nombre: LAN)  
+- ![image](https://github.com/user-attachments/assets/d7fdb607-6c0a-4536-94c1-becd3c8cd472)
 
 # Configuración de Firewalls con pfSense
 
@@ -149,6 +160,7 @@
 sudo apt update && sudo apt upgrade -y
 sudo apt install squid -y
 ```
+- ![image](https://github.com/user-attachments/assets/ae01b196-8b3d-450c-9243-9b80b5684a1b)
 
 # Configuración de Squid y Servidor VPN
 
@@ -158,7 +170,6 @@ sudo apt install squid -y
 ```bash
 sudo nano /etc/squid/squid.conf
 ```
-
 ### Realiza las siguientes modificaciones:
 Definir las redes permitidas: Agrega las ACLs para la red interna y la VPN.
 ```plaintext
@@ -174,6 +185,8 @@ http_port 3128
 ```
 Habilitar el acceso anónimo (opcional): Si no necesitas autenticación, asegúrate de que no haya reglas de autenticación configuradas.
 
+- ![image](https://github.com/user-attachments/assets/63499f60-eec0-42a6-a488-968b19082a10)
+
 ## Configuración de Bloqueo de Páginas Web
 
 ### Crea una lista negra de URLs prohibidas:
@@ -188,6 +201,9 @@ youtube.com
 twitter.com
 ```
 Guarda y cierra el archivo.
+
+- ![image](https://github.com/user-attachments/assets/2e81e426-3db8-4112-874b-0e3462a220fd)
+
 
 ### Configurar Squid para usar la lista negra:
 Edita el archivo principal de configuración de Squid:
@@ -210,6 +226,8 @@ sudo systemctl restart squid
 ## Configuración de Restricciones de Tiempo
 
 Puedes permitir o bloquear el acceso en horarios específicos para determinados usuarios o redes.
+
+
 
 ### Define las horas permitidas o bloqueadas:
 Edita el archivo de configuración de Squid:
@@ -244,6 +262,8 @@ acl youtube dstdomain .youtube.com
 acl working_hours time MTWHF 08:00-18:00
 http_access deny youtube !working_hours
 ```
+- ![image](https://github.com/user-attachments/assets/5a4d1f25-712c-4106-935f-3703c21d3cd2)
+
 
 ## Verificación de Configuración
 
@@ -263,6 +283,9 @@ sudo systemctl restart squid
 sudo systemctl enable squid
 ```
 
+- ![image](https://github.com/user-attachments/assets/df3f668b-47e7-4f1a-8110-d8890e99b57a)
+
+
 # Configuración del Servidor VPN (OpenVPN en la DMZ)
 
 ### Instalar OpenVPN en Ubuntu Server:
@@ -270,6 +293,8 @@ sudo systemctl enable squid
 sudo apt update
 sudo apt install openvpn easy-rsa -y
 ```
+- ![image](https://github.com/user-attachments/assets/d282b21b-5a05-47db-9387-bddf38b0bf6c)
+
 
 ### Configurar el servidor OpenVPN:
 ```plaintext
@@ -279,16 +304,22 @@ Red del túnel: 10.8.0.0/24
 Rutas:
 push "route 192.168.0.0 255.255.255.0"
 ```
+- ![image](https://github.com/user-attachments/assets/355f635f-d91c-439e-a5a2-3c0bd4f22fdf)
+
 
 ### Habilita el reenvío de paquetes en `/etc/sysctl.conf`:
 ```plaintext
 net.ipv4.ip_forward=1
 ```
+- ![image](https://github.com/user-attachments/assets/c31bc27f-84af-49c5-98e7-5256f59c91dc)
+
 
 ### Configura las reglas de NAT en la DMZ:
 ```bash
 sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 ```
+- ![image](https://github.com/user-attachments/assets/7f703136-f218-407c-8afa-528ec7995230)
+
 
 ### Inicia OpenVPN:
 ```bash
@@ -315,6 +346,9 @@ Prueba la navegación:
 Accede a un sitio web permitido, como [Google](https://www.google.com).
 Resultado esperado: El acceso debe ser exitoso.
 
+- ![image](https://github.com/user-attachments/assets/d1c632f9-8b50-41bc-9d2d-5195ea1ab62f)
+
+
 ### Logs del Proxy:
 En el servidor Proxy, verifica los logs de acceso en tiempo real:
 ```bash
@@ -322,9 +356,15 @@ sudo tail -f /var/log/squid/access.log
 ```
 Resultado esperado: Los registros deben mostrar la solicitud del cliente con la IP 192.168.0.100.
 
+- ![image](https://github.com/user-attachments/assets/a6e4c672-2578-4865-828f-3f1a95bfc3ea)
+
+
 ### b) Bloqueo de sitios configurados en Squid
 Intenta acceder a un sitio bloqueado (por ejemplo, [Facebook](https://www.facebook.com)).
 Resultado esperado: El acceso debe ser rechazado.
+
+- ![image](https://github.com/user-attachments/assets/bf711381-6572-4be0-8172-7d51569cbe13)
+
 
 ### Verifica los logs del Proxy:
 Busca entradas que muestran el bloqueo del sitio en los logs:
@@ -333,15 +373,23 @@ grep facebook /var/log/squid/access.log
 ```
 Resultado esperado: El log debe registrar el intento de acceso con un código de error (`TCP_DENIED`).
 
+- ![image](https://github.com/user-attachments/assets/73363bcd-8c9a-4513-8769-d761c5899150)
+
+
 ### c) Restricciones de tiempo
 Intenta acceder a Internet fuera del horario permitido (según las ACLs configuradas en Squid, por ejemplo, fuera de `08:00-18:00`).
 Resultado esperado: El acceso debe ser bloqueado.
+
+- ![image](https://github.com/user-attachments/assets/b4b668e7-fe7a-455d-b516-7966a99943f2)
+
 
 ### Verifica los logs:
 Busca en los registros intentos fuera del horario permitido:
 ```bash
 sudo tail -f /var/log/squid/access.log
 ```
+- ![image](https://github.com/user-attachments/assets/7143905f-b927-4363-b8b8-02e907ae3d94)
+
 
 # Pruebas de Seguridad
 
