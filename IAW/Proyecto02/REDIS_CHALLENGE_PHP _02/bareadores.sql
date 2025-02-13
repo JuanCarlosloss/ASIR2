@@ -21,3 +21,8 @@ CREATE TABLE vareadores_olivos (
     FOREIGN KEY (vareador_id) REFERENCES vareadores(id) ON DELETE CASCADE,
     FOREIGN KEY (olivo_id) REFERENCES olivos(id) ON DELETE CASCADE
 );
+CREATE TABLE configuracion_cache (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    politica ENUM('write_through', 'invalidacion', 'ttl', 'lazy_loading', 'gilran') NOT NULL,
+    ttl INT DEFAULT 60 -- TTL por defecto (60 segundos)
+);
