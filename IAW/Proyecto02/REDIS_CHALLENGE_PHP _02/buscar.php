@@ -1,43 +1,60 @@
 <?php
-require 'db.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once 'db.php';
 
-$buscar = "";
-$resultado = [];
+$error_message = "";
+$resultados = [];
+$busqueda = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $buscar = trim($_POST["buscar"]);
-    $cache_key = "buscar:" . md5($buscar);
+// Obtener la configuración de la política activa
+$config = json_decode($redis->get("configuracion_cache"), true);
+$politica_activa = isset($config['politica']) ? $config['politica'] : 'ttl';
+$ttl_actual = isset($config['ttl']) ? intval($config['ttl']) : 60;
 
-    // Intentar obtener desde Redis
-    $resultado = getCache($cache_key);
+// **Función para buscar relaciones en Redis o MySQL**
+function buscarRelaciones($busqueda) {
+    global $conn, $redis, $politica_activa, $ttl_actual;
 
-    if (!$resultado) {
-        error_log("🚨 No encontrado en Redis, consultando MySQL...");
+    $cacheKey = "buscar_relaciones_" . $busqueda; // 🔥 Quitamos el md5 y dejamos el texto normal
+    $relaciones = json_decode($redis->get($cacheKey), true);
 
+    if (!$relaciones) {
         $sql = "SELECT v.nombre AS vareador, o.ubicacion AS olivo 
-                FROM vareadores_olivos 
-                JOIN vareadores v ON v.id = vareadores_olivos.vareador_id 
-                JOIN olivos o ON o.id = vareadores_olivos.olivo_id 
-                WHERE v.nombre LIKE '%$buscar%' OR o.ubicacion LIKE '%$buscar%'";
+                FROM vareadores_olivos vo
+                JOIN vareadores v ON vo.vareador_id = v.id
+                JOIN olivos o ON vo.olivo_id = o.id
+                WHERE v.nombre LIKE ? OR o.ubicacion LIKE ?";
+                
+        $stmt = $conn->prepare($sql);
+        $busquedaParam = "%$busqueda%";
+        $stmt->bind_param("ss", $busquedaParam, $busquedaParam);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $relaciones = $result->fetch_all(MYSQLI_ASSOC);
 
-        $query_result = $conn->query($sql);
-        $resultado = $query_result->fetch_all(MYSQLI_ASSOC);
-
-        // Guardar en Redis con TTL correcto
-        if (!empty($resultado)) {
-            setCache($cache_key, $resultado);
-            error_log("✅ Resultados guardados en Redis para clave: $cache_key");
-        } else {
-            error_log("⚠️ No se encontraron resultados en MySQL");
+        switch ($politica_activa) {
+            case "write_through":
+                $redis->set($cacheKey, json_encode($relaciones));
+                break;
+            case "invalidacion":
+                $redis->del($cacheKey);
+                break;
+            case "ttl":
+                $redis->setex($cacheKey, $ttl_actual, json_encode($relaciones));
+                break;
         }
-    } else {
-        error_log("✅ Resultados obtenidos desde Redis para clave: $cache_key");
     }
+
+    return $relaciones;
 }
 
-$conn->close();
+// **Manejo del formulario de búsqueda**
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['busqueda'])) {
+    $busqueda = trim($_POST['busqueda']);
+    $resultados = buscarRelaciones($busqueda);
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -46,34 +63,49 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Buscar Relaciones</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { 
+            max-width: 700px; 
+            margin-top: 50px; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+            text-align: center;
+        }
+        .list-group-item { font-size: 18px; font-weight: 500; }
+        .btn-custom { width: 100%; margin-top: 15px; }
+    </style>
 </head>
-<body class="container mt-5">
-    <h2>Buscar Relaciones</h2>
+<body>
+    <div class="container">
+        <h2>🔍 Buscar Relaciones</h2>
+        <hr>
 
-    <a href="index.php" class="btn btn-secondary mb-3">Volver</a>
+        <!-- Formulario de Búsqueda -->
+        <form method="POST">
+            <div class="input-group mb-3">
+                <input type="text" name="busqueda" class="form-control" placeholder="Buscar por vareador u olivo..." value="<?= htmlspecialchars($busqueda) ?>">
+                <button class="btn btn-primary" type="submit">🔍 Buscar</button>
+            </div>
+        </form>
 
-    <form method="post" class="mb-4">
-        <div class="mb-3">
-            <label class="form-label">Buscar por Vareador o Ubicación del Olivo</label>
-            <input type="text" name="buscar" class="form-control" value="<?= htmlspecialchars($buscar) ?>" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
-    </form>
-
-    <?php if (!empty($resultado)) : ?>
-        <h3>Resultados de la Búsqueda</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr><th>Vareador</th><th>Olivo</th></tr>
-            </thead>
-            <tbody>
-                <?php foreach ($resultado as $relacion) : ?>
-                    <tr><td><?= $relacion['vareador'] ?></td><td><?= $relacion['olivo'] ?></td></tr>
+        <!-- Resultados -->
+        <?php if (!empty($resultados)): ?>
+            <h4 class="mt-4">📋 Resultados</h4>
+            <ul class="list-group">
+                <?php foreach ($resultados as $r): ?>
+                    <li class="list-group-item">
+                        👷‍♂️ <?= htmlspecialchars($r['vareador']) ?> - 🌿 <?= htmlspecialchars($r['olivo']) ?>
+                    </li>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php elseif ($buscar) : ?>
-        <p class="alert alert-warning">No se encontraron resultados.</p>
-    <?php endif; ?>
+            </ul>
+        <?php elseif ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
+            <p class="text-warning text-center">⚠️ No se encontraron relaciones.</p>
+        <?php endif; ?>
+
+        <a href="index.php" class="btn btn-secondary btn-custom">Volver</a>
+    </div>
 </body>
 </html>

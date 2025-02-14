@@ -4,32 +4,18 @@ ini_set('display_errors', 1);
 require_once 'db.php';
 
 $error_message = "";
-$vareador = null;
+$success_message = "";
 
-// Obtener lista de Vareadores sin guardarlos en Redis
+// Obtener configuración de caché desde Redis
+$config = json_decode($redis->get("configuracion_cache"), true);
+$politica_activa = isset($config['politica']) ? $config['politica'] : 'ttl';
+$ttl = isset($config['ttl']) ? intval($config['ttl']) : 60;
+
+// Obtener lista de Vareadores
 $result = $conn->query("SELECT id, nombre FROM vareadores");
 $vareadores_lista = $result->fetch_all(MYSQLI_ASSOC);
 
-// Si el usuario selecciona un Vareador
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buscar_id"])) {
-    $id = intval($_POST["buscar_id"]);
-    
-    // Intentamos obtener desde Redis
-    $vareador = getCache("vareador:$id");
-
-    if (!$vareador) {
-        // Si no está en Redis, obtenemos desde MySQL
-        $result = $conn->query("SELECT * FROM vareadores WHERE id=$id");
-        $vareador = $result->fetch_assoc();
-
-        // Guardamos en Redis si la política es Invalidación de Caché
-        if ($config['politica'] == 'invalidacion') {
-            setCache("vareador:$id", $vareador);
-        }
-    }
-}
-
-// Si el usuario edita un Vareador
+// **Editar Vareador**
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_id"], $_POST["nombre"])) {
     $id = intval($_POST["editar_id"]);
     $nombre = trim($_POST["nombre"]);
@@ -37,18 +23,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_id"], $_POST["n
     if (!empty($nombre)) {
         $conn->query("UPDATE vareadores SET nombre='$nombre' WHERE id=$id");
 
-        // Aplicar política de caché
-        manejarCache("vareador:$id", ["id" => $id, "nombre" => $nombre], 'update');
+        // ✅ Si la política `write_through` está activa, actualiza Redis inmediatamente
+        if ($politica_activa === "write_through") {
+            setCache("vareadores", $conn->query("SELECT * FROM vareadores")->fetch_all(MYSQLI_ASSOC));
+        }
 
-        header("Location: gestion_vareadores.php?success=edit");
-        exit;
+        $success_message = "✅ Vareador actualizado.";
     } else {
         $error_message = "❌ El nombre no puede estar vacío.";
     }
 }
 
+// **Añadir Vareador**
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nuevo_nombre"])) {
+    $nombre = trim($_POST["nuevo_nombre"]);
+
+    if (!empty($nombre)) {
+        $conn->query("INSERT INTO vareadores (nombre) VALUES ('$nombre')");
+
+        // ✅ Si `write_through` está activa, actualiza Redis inmediatamente
+        if ($politica_activa === "write_through") {
+            setCache("vareadores", $conn->query("SELECT * FROM vareadores")->fetch_all(MYSQLI_ASSOC));
+        }
+
+        $success_message = "✅ Vareador añadido.";
+    } else {
+        $error_message = "❌ El nombre no puede estar vacío.";
+    }
+}
+
+// **Eliminar Vareador**
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eliminar_id"])) {
+    $id = intval($_POST["eliminar_id"]);
+    $conn->query("DELETE FROM vareadores WHERE id=$id");
+
+    // ✅ Si `write_through` está activa, actualiza Redis inmediatamente
+    if ($politica_activa === "write_through") {
+        setCache("vareadores", $conn->query("SELECT * FROM vareadores")->fetch_all(MYSQLI_ASSOC));
+    }
+
+    $success_message = "✅ Vareador eliminado.";
+}
+
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -58,37 +77,54 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión de Vareadores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 600px; margin-top: 50px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }
+        .btn-custom { width: 100%; margin-bottom: 10px; }
+    </style>
 </head>
-<body class="container mt-5">
-    <h2>Gestión de Vareadores</h2>
-    <a href="index.php" class="btn btn-secondary mb-3">Volver</a>
+<body>
+    <div class="container">
+        <h2>👷 Gestión de Vareadores</h2>
+        <hr>
 
-    <?php if (!empty($error_message)): ?>
-        <p class="alert alert-danger"><?= $error_message ?></p>
-    <?php endif; ?>
+        <?php if ($success_message): ?>
+            <div class="alert alert-success"><?= $success_message ?></div>
+        <?php elseif ($error_message): ?>
+            <div class="alert alert-danger"><?= $error_message ?></div>
+        <?php endif; ?>
 
-    <h3>Seleccionar Vareador</h3>
-    <form method="post" class="mb-4">
-        <label class="form-label">Vareador:</label>
-        <select name="buscar_id" class="form-control">
-            <option value="" disabled selected>Selecciona un Vareador</option>
-            <?php foreach ($vareadores_lista as $v): ?>
-                <option value="<?= $v['id'] ?>"><?= htmlspecialchars($v['nombre']) ?> (ID: <?= $v['id'] ?>)</option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit" class="btn btn-info mt-2">Buscar</button>
-    </form>
-
-    <?php if ($vareador): ?>
-        <h3>Editar Vareador</h3>
-        <form method="post">
-            <input type="hidden" name="editar_id" value="<?= $vareador['id'] ?>">
+        <!-- 📌 Formulario para Agregar un Vareador -->
+        <h4>➕ Agregar Nuevo Vareador</h4>
+        <form method="POST">
             <div class="mb-3">
-                <label class="form-label">Nuevo Nombre</label>
-                <input type="text" name="nombre" class="form-control" value="<?= htmlspecialchars($vareador['nombre']) ?>" required>
+                <input type="text" name="nuevo_nombre" class="form-control" placeholder="Nombre del Vareador">
             </div>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <button type="submit" class="btn btn-success btn-custom">Agregar</button>
         </form>
-    <?php endif; ?>
+
+        <!-- 📌 Lista de Vareadores con opciones de Editar y Eliminar -->
+        <h4 class="mt-4">📋 Lista de Vareadores</h4>
+        <ul class="list-group mb-3">
+            <?php foreach ($vareadores_lista as $v): ?>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span><?= htmlspecialchars($v['nombre']) ?></span>
+                    <div>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="editar_id" value="<?= $v['id'] ?>">
+                            <input type="text" name="nombre" value="<?= htmlspecialchars($v['nombre']) ?>" class="form-control d-inline" style="width: 150px;">
+                            <button type="submit" class="btn btn-warning btn-sm">✏️</button>
+                        </form>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="eliminar_id" value="<?= $v['id'] ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+                        </form>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <a href="index.php" class="btn btn-secondary btn-custom">Volver</a>
+    </div>
 </body>
 </html>
