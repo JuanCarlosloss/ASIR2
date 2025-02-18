@@ -29,11 +29,11 @@ function setCache($key, $value) {
                 break;
             }
         }
-        $ttl = $is_numeric ? 10 : 60; // Numérico → 10s, Texto → 60s
+        $ttl = $is_numeric ? 10 : 30; // Numérico → 10s, Texto → 60s
     } elseif (is_numeric($value)) {
         $ttl = 10; // Claves numéricas
     } else {
-        $ttl = 60; // Claves de texto
+        $ttl = 30; // Claves de texto
     }
 
     // Guardar en Redis con el TTL correcto

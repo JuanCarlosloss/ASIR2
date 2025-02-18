@@ -24,5 +24,5 @@ CREATE TABLE vareadores_olivos (
 CREATE TABLE configuracion_cache (
     id INT PRIMARY KEY AUTO_INCREMENT,
     politica ENUM('write_through', 'invalidacion', 'ttl', 'lazy_loading', 'gilran') NOT NULL,
-    ttl INT DEFAULT 60 -- TTL por defecto (60 segundos)
+    ttl INT DEFAULT 30 -- TTL por defecto (60 segundos)
 );

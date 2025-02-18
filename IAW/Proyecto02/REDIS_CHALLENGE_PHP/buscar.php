@@ -6,7 +6,7 @@ $resultado = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $buscar = trim($_POST["buscar"]);
-    $cache_key = "buscar:" . md5($buscar);
+    $cache_key = "buscar:" . ($buscar);
 
     // Intentar obtener desde Redis
     $resultado = getCache($cache_key);

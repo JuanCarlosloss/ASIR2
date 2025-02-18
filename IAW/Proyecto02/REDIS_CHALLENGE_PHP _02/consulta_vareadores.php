@@ -9,7 +9,7 @@ $vareadores = [];
 // Obtener configuración de caché desde Redis
 $config = json_decode($redis->get("configuracion_cache"), true);
 $politica_activa = isset($config['politica']) ? $config['politica'] : 'ttl';
-$ttl = isset($config['ttl']) ? intval($config['ttl']) : 60;
+$ttl = isset($config['ttl']) ? intval($config['ttl']) : 30;
 
 // **Si `invalidacion` está activa, actualiza Redis en cada consulta**
 if ($politica_activa === "invalidacion") {

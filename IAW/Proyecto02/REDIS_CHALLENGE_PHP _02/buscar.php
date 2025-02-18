@@ -10,7 +10,7 @@ $busqueda = "";
 // Obtener la configuración de la política activa
 $config = json_decode($redis->get("configuracion_cache"), true);
 $politica_activa = isset($config['politica']) ? $config['politica'] : 'ttl';
-$ttl_actual = isset($config['ttl']) ? intval($config['ttl']) : 60;
+$ttl_actual = isset($config['ttl']) ? intval($config['ttl']) : 30;
 
 // **Función para buscar relaciones en Redis o MySQL**
 function buscarRelaciones($busqueda) {
