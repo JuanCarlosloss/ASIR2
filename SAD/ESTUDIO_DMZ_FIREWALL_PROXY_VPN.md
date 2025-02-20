@@ -13,8 +13,6 @@ Una **VPN (Red Privada Virtual)** es una tecnología que protege tu conexión a 
 - **Enmascaramiento de IP**: Reemplaza tu IP real con la del servidor VPN, cambiando tu ubicación virtual.
 - **Servidores intermedios**: Redirige el tráfico desde el servidor VPN hacia el destino final.
 
-> **Ejemplo visual**: Un usuario que se conecta desde un país A puede parecer como si estuviera navegando desde el país B gracias al cambio de IP.
-
 ---
 
 # 3. Principales ventajas:
