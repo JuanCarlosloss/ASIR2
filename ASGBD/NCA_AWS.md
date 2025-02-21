@@ -20,3 +20,6 @@
 - ![image](https://github.com/user-attachments/assets/d5308def-000a-4ade-b50e-48615d2357eb)
 - ![image](https://github.com/user-attachments/assets/5accb9f4-795f-4299-b383-d3e91a5fa0e7)
 - ![image](https://github.com/user-attachments/assets/6fd707fe-142a-4ceb-8b4b-fd8b5adbf842)
+
+## 2. Despliegue de una base de datos en la nube
+- 
