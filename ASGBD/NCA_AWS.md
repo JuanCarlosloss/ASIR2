@@ -22,4 +22,12 @@
 - ![image](https://github.com/user-attachments/assets/6fd707fe-142a-4ceb-8b4b-fd8b5adbf842)
 
 ## 2. Despliegue de una base de datos en la nube
-- 
+- ![image](https://github.com/user-attachments/assets/32e7aa5a-3aef-4b62-a28f-3d72cab7d0e6)
+- ![image](https://github.com/user-attachments/assets/88e0ab21-7068-450c-a606-b675dd076058)
+- ![image](https://github.com/user-attachments/assets/2a1f2330-d571-4145-b98c-192864573e91)
+- ![image](https://github.com/user-attachments/assets/b76b2d06-0105-4edf-ac41-c557b8afe7d5)
+- ![image](https://github.com/user-attachments/assets/2cd203ba-6f29-469a-9d0a-14eee8014db0)
+- ![image](https://github.com/user-attachments/assets/ad9e1453-cfb3-48af-ac04-cd84357eb891)
+
+
+
